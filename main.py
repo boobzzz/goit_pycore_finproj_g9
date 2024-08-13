@@ -13,7 +13,7 @@ def parse_input(user_input: str) -> Tuple:
 
 
 def main():
-    print("Welcome to the assistant bot!")
+    print("Welcome to the assistant bot!!")
     while True:
         cmd, *args = parse_input(input("Enter a command: "))
         if cmd in [Commands.CLOSE, Commands.EXIT]:
