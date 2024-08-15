@@ -1,3 +1,4 @@
+from address import Address, AddressParams
 from name import Name
 from phone import Phone, PhoneData
 from commands import Commands
@@ -9,10 +10,12 @@ class Record:
         self.__name = Name(name)
         self.__phones = []
         self.__birthday = None
+        self.__address = None
 
     def __str__(self):
         return (f"Contact name: {self.__name.value}, phones: {'; '.join(p.value for p in self.__phones)}, "
-                f"birthday: {self.__birthday.value if self.__birthday else "none"}")
+                f"birthday: {self.__birthday.value if self.__birthday else "none"}, "
+                f"address: {self.__address.value if self.__address else "none"}")
 
     @property
     def name(self):
@@ -25,6 +28,10 @@ class Record:
     @property
     def birthday(self):
         return self.__birthday
+
+    @property
+    def address(self):
+        return self.__address
 
     def add_phone(self, phone: str) -> str:
         new_phone = Phone(phone)
@@ -66,3 +73,6 @@ class Record:
 
     def add_birthday(self, date: str):
         self.__birthday = Birthday(date)
+
+    def update_address(self, params: AddressParams):
+        self.__address = Address(params)
