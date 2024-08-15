@@ -73,6 +73,7 @@ def change_contact(args: List[str]) -> str:
 @input_error
 @show_message
 def delete_contact(args: List[str]) -> str:
+    if len(args) < 1: return Commands.messages.get(Commands.INVALID_CMD)
     name = args[0]
     record = book.find_record(name)
     message = Commands.errors.get(Commands.NOT_FOUND)
@@ -85,6 +86,7 @@ def delete_contact(args: List[str]) -> str:
 @input_error
 @show_message
 def show_all_phones(args: List[str]) -> str:
+    if len(args) < 1: return Commands.messages.get(Commands.INVALID_CMD)
     name = args[0]
     record = book.find_record(name)
     message = Commands.errors.get(Commands.NOT_FOUND)
@@ -116,6 +118,7 @@ def add_birthday(args: List[str]) -> str:
 @input_error
 @show_message
 def show_birthday(args: List[str]) -> str:
+    if len(args) < 1: return Commands.messages.get(Commands.INVALID_CMD)
     name = args[0]
     record = book.find_record(name)
     message = Commands.errors.get(Commands.NOT_FOUND)
