@@ -26,7 +26,7 @@ def get_response(cmd: str, args: List):
         case Commands.SHOW_BD:
             show_birthday(args)
         case Commands.BD_SOON:
-            birthdays()
+            birthdays(args)
 
 
 def save_session():
@@ -127,28 +127,38 @@ def show_birthday(args: List[str]) -> str:
     message = Commands.errors.get(Commands.NOT_FOUND)
     if record:
         if record.birthday is None: return message
-        # message = record.birthday.strftime(record.birthday.format)
         message = record.birthday.bd_date.date()
     return message
 
 
 @show_message
-def birthdays() -> str:
+def birthdays(args: List[str]) -> str:
+    delta = None
+    if len(args) >= 1:
+        try:
+            delta = int(args[0])
+        except:
+            return Commands.messages.get(Commands.INVALID_CMD)
     message = Commands.errors.get(Commands.EMPTY)
     bd_entries = []
     if bool(book):
         message = ""
         for record in book.values():
-            record_bd_now = utils.is_bd_in_range(record)
+            record_bd_now = utils.is_bd_in_range(record, delta)
             if record_bd_now:
+                dates = utils.get_congrats_date(record_bd_now)
                 entry = {
                     "name": record.name,
-                    "congrats_date": utils.get_congrats_date(record_bd_now)
+                    "congrats_date": dates[0],
+                    "birthday": dates[1]
                 }
                 bd_entries.append(entry)
         bd_entries.sort(key=lambda e: e["congrats_date"])
 
         for entry in bd_entries:
-            message += f"{entry["name"]}: {entry["congrats_date"].date()}\n"
+            if entry["congrats_date"] == entry["birthday"]:
+                message += f"{entry["name"]}: {entry["congrats_date"].date()}\n"
+            else:
+                message += f"{entry["name"]}: {entry["congrats_date"].date()} (birthday @ {entry["birthday"].date()})\n"
 
     return message
