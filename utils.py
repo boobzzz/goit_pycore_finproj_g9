@@ -16,6 +16,7 @@ def get_congrats_date(record_bd_now: datetime) -> datetime:
 
 def is_bd_in_range(record: Record) -> datetime:
     today = datetime.today()
+    if record.birthday is None: return None
     record_bd_now = record.birthday.bd_date.replace(year=today.year)
     if record_bd_now < today or record_bd_now > (today + timedelta(days=BD_INTERVAL)):
         record_bd_now = None

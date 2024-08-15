@@ -24,6 +24,8 @@ def get_response(cmd: str, args: List):
         case Commands.ADD_BD:
             add_birthday(args)
         case Commands.SHOW_BD:
+            show_birthday(args)
+        case Commands.BD_SOON:
             birthdays()
 
 
@@ -39,6 +41,7 @@ def say_hello() -> str:
 @input_error
 @show_message
 def add_contact(args: List[str]) -> str:
+    if len(args) < 2: return Commands.messages.get(Commands.INVALID_CMD)
     name, *rest = args
     record = book.find_record(name)
     message = Commands.messages.get(Commands.CHANGE)
@@ -56,6 +59,7 @@ def add_contact(args: List[str]) -> str:
 @input_error
 @show_message
 def change_contact(args: List[str]) -> str:
+    if len(args) < 3: return Commands.messages.get(Commands.INVALID_CMD)
     name, phone, new_phone = args
     record = book.find_record(name)
     message = Commands.errors.get(Commands.NOT_FOUND)
@@ -71,6 +75,7 @@ def change_contact(args: List[str]) -> str:
 @input_error
 @show_message
 def delete_contact(args: List[str]) -> str:
+    if len(args) < 1: return Commands.messages.get(Commands.INVALID_CMD)
     name = args[0]
     record = book.find_record(name)
     message = Commands.errors.get(Commands.NOT_FOUND)
@@ -83,6 +88,7 @@ def delete_contact(args: List[str]) -> str:
 @input_error
 @show_message
 def show_all_phones(args: List[str]) -> str:
+    if len(args) < 1: return Commands.messages.get(Commands.INVALID_CMD)
     name = args[0]
     record = book.find_record(name)
     message = Commands.errors.get(Commands.NOT_FOUND)
@@ -102,6 +108,7 @@ def show_all_contacts() -> str:
 @input_error
 @show_message
 def add_birthday(args: List[str]) -> str:
+    if len(args) < 2: return Commands.messages.get(Commands.INVALID_CMD)
     name, birthday = args
     record = book.find_record(name)
     message = Commands.errors.get(Commands.NOT_FOUND)
@@ -114,11 +121,14 @@ def add_birthday(args: List[str]) -> str:
 @input_error
 @show_message
 def show_birthday(args: List[str]) -> str:
+    if len(args) < 1: return Commands.messages.get(Commands.INVALID_CMD)
     name = args[0]
     record = book.find_record(name)
     message = Commands.errors.get(Commands.NOT_FOUND)
     if record:
-        message = record.birthday.strftime(record.birthday.format)
+        if record.birthday is None: return message
+        # message = record.birthday.strftime(record.birthday.format)
+        message = record.birthday.bd_date.date()
     return message
 
 
