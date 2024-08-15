@@ -27,7 +27,13 @@ def get_response(cmd: str, args: List):
         case Commands.ADD_BD:
             add_birthday(args)
         case Commands.SHOW_BD:
-            birthdays()
+            show_birthday(args)
+        case Commands.BD_SOON:
+            birthdays(args)
+        case Commands.ADD_ADR:
+            add_address(args)
+        case Commands.CHANGE_ADR:
+            change_address(args)
         case Commands.ADD_NOTE:
             add_note()
         case Commands.EDIT_NOTE:
@@ -36,13 +42,6 @@ def get_response(cmd: str, args: List):
             delete_note(args)
         case Commands.SHOW_NOTES:
             show_notes(args)
-            show_birthday(args)
-        case Commands.BD_SOON:
-            birthdays(args)
-        case Commands.ADD_ADR:
-            add_address(args)
-        case Commands.CHANGE_ADR:
-            change_address(args)
 
 
 def save_session():
@@ -153,7 +152,7 @@ def birthdays(args: List[str]) -> str:
     if len(args) >= 1:
         try:
             delta = int(args[0])
-        except:
+        except IndexError:
             return Commands.messages.get(Commands.INVALID_CMD)
     message = Commands.errors.get(Commands.EMPTY)
     bd_entries = []
@@ -186,7 +185,7 @@ def add_address(args: List[str]) -> str:
     if len(args) == 0:
         return message
 
-    record = book.find_record(args[0])
+    record = address_book.find_record(args[0])
     if not record:
         message = Commands.errors[Commands.NOT_FOUND]
         return message
@@ -244,7 +243,7 @@ def change_address(args: List[str]) -> str:
     if len(args) == 0:
         return message
 
-    record = book.find_record(args[0])
+    record = address_book.find_record(args[0])
     if not record:
         message = Commands.errors[Commands.NOT_FOUND]
         return message
