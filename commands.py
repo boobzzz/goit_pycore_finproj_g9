@@ -9,6 +9,7 @@ class Commands:
     ADD_ADR = "add-address"
     UPD_ADR = "upd-address"
     CHANGE_ADR = "change-address"
+    BD_SOON = "birthdays"
     HELLO = "hello"
     CLOSE = "close"
     EXIT = "exit"
@@ -34,7 +35,7 @@ class Commands:
     QUIT_UPD = "quit-updating"
     PROCEED = "proceed"
 
-    commands = [ADD, CHANGE, DELETE, PHONE, ALL, ADD_BD, SHOW_BD, ADD_ADR, CHANGE_ADR, HELLO, CLOSE, EXIT]
+    commands = [ADD, CHANGE, DELETE, PHONE, ALL, ADD_BD, SHOW_BD, ADD_ADR, BD_SOON, CHANGE_ADR, HELLO, CLOSE, EXIT]
 
     messages = {
         HELLO: "How can I help you?",
