@@ -41,6 +41,7 @@ def say_hello() -> str:
 @input_error
 @show_message
 def add_contact(args: List[str]) -> str:
+    if len(args) < 2: return Commands.messages.get(Commands.INVALID_CMD)
     name, *rest = args
     record = book.find_record(name)
     message = Commands.messages.get(Commands.CHANGE)
@@ -58,6 +59,7 @@ def add_contact(args: List[str]) -> str:
 @input_error
 @show_message
 def change_contact(args: List[str]) -> str:
+    if len(args) < 3: return Commands.messages.get(Commands.INVALID_CMD)
     name, phone, new_phone = args
     record = book.find_record(name)
     message = Commands.errors.get(Commands.NOT_FOUND)
@@ -106,6 +108,7 @@ def show_all_contacts() -> str:
 @input_error
 @show_message
 def add_birthday(args: List[str]) -> str:
+    if len(args) < 2: return Commands.messages.get(Commands.INVALID_CMD)
     name, birthday = args
     record = book.find_record(name)
     message = Commands.errors.get(Commands.NOT_FOUND)
