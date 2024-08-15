@@ -24,6 +24,8 @@ def get_response(cmd: str, args: List):
         case Commands.ADD_BD:
             add_birthday(args)
         case Commands.SHOW_BD:
+            show_birthday(args)
+        case Commands.BD_SOON:
             birthdays()
 
 
@@ -118,7 +120,9 @@ def show_birthday(args: List[str]) -> str:
     record = book.find_record(name)
     message = Commands.errors.get(Commands.NOT_FOUND)
     if record:
-        message = record.birthday.strftime(record.birthday.format)
+        if record.birthday is None: return message
+        # message = record.birthday.strftime(record.birthday.format)
+        message = record.birthday.bd_date.date()
     return message
 
 

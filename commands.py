@@ -6,6 +6,7 @@ class Commands:
     ALL = "all"
     ADD_BD = "add-birthday"
     SHOW_BD = "show-birthday"
+    BD_SOON = "birthdays"
     HELLO = "hello"
     CLOSE = "close"
     EXIT = "exit"
@@ -16,7 +17,7 @@ class Commands:
     NOT_FOUND = "not-found"
     EMPTY = "empty"
 
-    commands = [ADD, CHANGE, DELETE, PHONE, ALL, ADD_BD, SHOW_BD, HELLO, CLOSE, EXIT]
+    commands = [ADD, CHANGE, DELETE, PHONE, ALL, ADD_BD, SHOW_BD, BD_SOON, HELLO, CLOSE, EXIT]
 
     messages = {
         HELLO: "How can I help you?",
