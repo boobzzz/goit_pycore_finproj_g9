@@ -46,7 +46,7 @@ def say_hello() -> str:
 @input_error
 @show_message
 def add_contact(args: List[str]) -> str:
-    if len(args) < 2: return Commands.messages.get(Commands.INVALID_CMD)
+    if len(args) < 1: return Commands.messages.get(Commands.INVALID_CMD)
     name, *rest = args
     record = book.find_record(name)
     message = Commands.messages.get(Commands.CHANGE)
