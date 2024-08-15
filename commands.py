@@ -13,6 +13,7 @@ class Commands:
     HELLO = "hello"
     CLOSE = "close"
     EXIT = "exit"
+    EXIT_KB = "exit-kb"
     INVALID_CMD = "invalid-command"
     INVALID_PHONE = "invalid-phone"
     PHONE_EXISTS = "phone-exists"
@@ -43,6 +44,7 @@ class Commands:
         CHANGE: "Record updated successfully",
         DELETE: "Record deleted successfully",
         EXIT: "Good bye!",
+        EXIT_KB: "\nGood bye! [session not saved]",
         INVALID_CMD: "Invalid command.",
         ADD_CITY: "Enter city",
         ADD_STR: "Enter street",

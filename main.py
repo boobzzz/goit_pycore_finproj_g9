@@ -15,7 +15,11 @@ def parse_input(user_input: str) -> Tuple:
 def main():
     print("Welcome to the assistant bot!!")
     while True:
-        cmd, *args = parse_input(input("Enter a command: "))
+        try:
+            cmd, *args = parse_input(input("Enter a command: "))
+        except KeyboardInterrupt:
+            print(Commands.messages[Commands.EXIT_KB])
+            break
         if cmd in [Commands.CLOSE, Commands.EXIT]:
             save_session()
             print(Commands.messages[Commands.EXIT])
