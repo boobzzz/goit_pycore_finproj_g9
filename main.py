@@ -13,9 +13,9 @@ def parse_input(user_input: str) -> Tuple:
 
 
 def main():
-    print("Welcome to the assistant bot!!")
+    print(Commands.messages[Commands.WELCOME])
     while True:
-        cmd, *args = parse_input(input("Enter a command: "))
+        cmd, *args = parse_input(input(Commands.messages[Commands.ENTER_CMD]))
         if cmd in [Commands.CLOSE, Commands.EXIT]:
             save_session()
             print(Commands.messages[Commands.EXIT])
@@ -24,7 +24,7 @@ def main():
         if cmd in Commands.commands:
             get_response(cmd, args)
         else:
-            print(Commands.messages[Commands.INVALID_CMD])
+            print(Commands.errors[Commands.INVALID_CMD])
 
 
 if __name__ == "__main__":
