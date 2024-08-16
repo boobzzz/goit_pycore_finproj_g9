@@ -88,13 +88,17 @@ class Record:
             self.__emails.append(new_email)
         else:
             return Commands.errors.get(Commands.EMAIL_EXISTS)
-
+         
     def update_email(self, current: str, new: str) -> str:
         found_email = self.find_email(Email(current))
         if not found_email:
             return Commands.errors.get(Commands.EMAIL_NOT_FOUND)
 
         new_email = Email(new)
+    
+        if new_email.value is None:
+            return Commands.errors.get(Commands.INVALID_EMAIL)
+
         if found_email["email"].value == new_email.value:
             return Commands.errors.get(Commands.EMAIL_EXISTS)
 
