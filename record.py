@@ -168,4 +168,9 @@ class Record:
                     string = self.address.building.casefold()
                     result = re.search(query, string)
                     return bool(result)
+            case Commands.EMAIL:
+                for email in self.emails:
+                    string = email.value
+                    result = re.search(query, string)
+                    if result: return True
         return False
