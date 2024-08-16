@@ -472,7 +472,6 @@ def show_email(args: List[str]) -> str:
             return Commands.errors.get(Commands.EMAIL_NOT_FOUND)
         return f"{Commands.messages.get(Commands.SHOW_EMAIL)}: {email_found['email'].value}"
     else:
-        # Handle the case where no email is provided
         emails = record.emails
         if not emails:
             return Commands.errors.get(Commands.EMAIL_NOT_FOUND)
