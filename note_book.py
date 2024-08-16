@@ -24,7 +24,7 @@ class NoteBook(UserDict):
         return note
 
     def get_notes_by_tag(self, tags: List[str]) -> str:
-        notes = "\n"
+        notes = ""
         for title in self:
             common_items = [tag for tag in tags if tag in self[title].tags]
             if len(common_items) > 0:

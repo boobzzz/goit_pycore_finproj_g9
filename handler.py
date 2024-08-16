@@ -366,8 +366,13 @@ def delete_note(args: List[str]) -> str:
 def sort_notes(args: List[str]) -> str:
     message = Commands.errors[Commands.NO_ARGS]
     if len(args) > 0:
-        trimmed = [tag.strip() for tag in args]
-        message = note_book.get_notes_by_tag(trimmed)
+        trimmed = [tag.strip().lower() for tag in args]
+        if len(trimmed) > 0:
+            notes = note_book.get_notes_by_tag(trimmed)
+            if notes:
+                message = "\n" + notes
+            else:
+                message = Commands.errors[Commands.NOTES_NOT_FOUND]
     return message
 
 

@@ -24,7 +24,7 @@ class Note(Field):
 
     def add_tags(self, tags: List[str]):
         if len(tags) > 0:
-            trimmed = [tag.strip() for tag in tags]
+            trimmed = [tag.strip().lower() for tag in tags]
             self.__tags.extend(list(set(trimmed)))
 
     def update_note(self, params: NoteParams):
