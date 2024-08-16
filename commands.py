@@ -56,6 +56,7 @@ class Commands:
     NO_TEXT = "no-text"
     NOTE_EXISTS = "note-exists"
     NOTE_NOT_FOUND = "note-not-found"
+    NOTES_NOT_FOUND = "notes-not-found"
     NOTES_EMPTY = "notes-empty"
     NO_ARGS = "not-enough-args"
     FIND = "find"
@@ -157,6 +158,7 @@ class Commands:
         NO_TEXT: "Note text is required",
         NOTE_EXISTS: "Note already exists",
         NOTE_NOT_FOUND: "Note was not found",
+        NOTES_NOT_FOUND: "No notes with provided tags",
         NOTES_EMPTY: "Note book is empty",
         NO_RECORD: "Record name is required",
         NO_CITY: "City name is required",
