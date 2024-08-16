@@ -1,33 +1,38 @@
 from collections import UserDict
 from typing import List
-from note import Note
+from note import Note, NoteParams
 
 
 class NoteBook(UserDict):
-    def add_note(self, title: str, text: str, tags: List[str] = None) -> Note:
-        note = Note(title, text)
-        self[title] = note
-        if tags:
-            note.add_tags(tags)
+    def add_note(self, params: NoteParams) -> Note:
+        note = Note(params["title"], params["text"])
+        self[params["title"].lower()] = note
+        if len(params["tags"]) > 0:
+            note.add_tags(params["tags"])
         return note
 
-    def edit_note(self, title: str):
-        pass
-
-    def remove_note(self, title: str):
+    def remove_note(self, args: List[str]):
+        title = " ".join(args).lower() if len(args) > 1 else args[0].lower()
         self.pop(title)
 
-    def find_note(self, title: str) -> Note:
+    def find_note(self, args: List[str]) -> Note:
+        title = " ".join(args).lower() if len(args) > 1 else args[0].lower()
         note = None
-        if title in self:
-            note = self[title]
+        key = title.lower()
+        if key in self:
+            note = self[key]
         return note
 
     def get_notes_by_tag(self, tags: List[str]) -> str:
-        pass
+        notes = "\n"
+        for title in self:
+            common_items = [tag for tag in tags if tag in self[title].tags]
+            if len(common_items) > 0:
+                notes += f"{self[title]}\n\n"
+        return notes
 
     def __str__(self):
-        notes = ""
+        notes = "\n"
         for note in self:
             notes += f"{self[note]}\n\n"
         return notes

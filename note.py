@@ -1,5 +1,11 @@
-from typing import List
+from typing import List, TypedDict
 from field import Field
+
+
+class NoteParams(TypedDict):
+    title: str
+    text: str
+    tags: List[str]
 
 
 class Note(Field):
@@ -21,11 +27,10 @@ class Note(Field):
             trimmed = [tag.strip() for tag in tags]
             self.__tags.extend(list(set(trimmed)))
 
-    def remove_tag(self, tag: str):
-        self.__tags.remove(tag)
-
-    def edit_note(self, title: str, text: str, tags):
-        pass
+    def update_note(self, params: NoteParams):
+        self.__title = params["title"]
+        self.value = params["text"]
+        self.add_tags(params["tags"])
 
     def __str__(self):
         return (

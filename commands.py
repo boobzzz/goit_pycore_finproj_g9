@@ -7,7 +7,7 @@ class Commands:
     ADD_BD = "add-birthday"
     SHOW_BD = "show-birthday"
     ADD_NOTE = "add-note"
-    EDIT_NOTE = "edit-note"
+    CHANGE_NOTE = "change-note"
     DELETE_NOTE = "delete-note"
     SHOW_NOTES = "show-notes"
     ADD_ADR = "add-address"
@@ -20,9 +20,13 @@ class Commands:
 
     WELCOME = "welcome"
     ENTER_CMD = "enter-command"
-    ENTER_TITLE = "enter-title"
-    ENTER_TEXT = "enter-text"
-    ENTER_TAGS = "enter-tags"
+    ADD_TITLE = "enter-title"
+    ADD_TEXT = "enter-text"
+    ADD_TAGS = "enter-tags"
+    UPD_TITLE = "update-title"
+    UPD_TEXT = "update-text"
+    UPD_TAGS = "update-tags"
+    FILTER_TAGS = "filter-tags"
     EMPTY = "empty"
     NOT_FOUND = "not-found"
     PHONE_NOT_FOUND = "phone-not-found"
@@ -41,14 +45,17 @@ class Commands:
     NO_BLD = "no-building"
     ADR_EXISTS = "address-exists"
     QUIT = "q"
-    QUIT_ADD = "quit-adding"
-    QUIT_UPD = "quit-updating"
+    QUIT_ADD_ADR = "quit-adding-address"
+    QUIT_UPD_ADR = "quit-updating-address"
+    QUIT_ADD_NOTE = "quit-adding-note"
+    QUIT_UPD_NOTE = "quit-updating-note"
     PROCEED = "proceed"
     NO_TITLE = "no-title"
     NO_TEXT = "no-text"
     NOTE_EXISTS = "note-exists"
     NOTE_NOT_FOUND = "note-not-found"
     NOTES_EMPTY = "notes-empty"
+    NO_ARGS = "not-enough-args"
 
     commands = [
         ADD,
@@ -62,7 +69,7 @@ class Commands:
         ADD_ADR,
         CHANGE_ADR,
         ADD_NOTE,
-        EDIT_NOTE,
+        CHANGE_NOTE,
         DELETE_NOTE,
         SHOW_NOTES,
         HELLO,
@@ -73,15 +80,22 @@ class Commands:
     messages = {
         WELCOME: "Welcome to the assistant bot!",
         ENTER_CMD: "Enter a command: ",
-        ENTER_TITLE: "Enter note title: ",
-        ENTER_TEXT: "Enter note text: ",
-        ENTER_TAGS: "Add note tags, comma separated (optional): ",
+        ADD_TITLE: "Enter note title",
+        ADD_TEXT: "Enter note text",
+        ADD_TAGS: "Add note tags, comma separated (optional)",
+        UPD_TITLE: "Update note title",
+        UPD_TEXT: "Update note text",
+        UPD_TAGS: "Update note tags, comma separated",
+        QUIT_ADD_NOTE: "Quit adding note",
+        QUIT_UPD_NOTE: "Quit updating note",
         HELLO: "How can I help you?",
         ADD: "Record added successfully",
         CHANGE: "Record updated successfully",
         DELETE: "Record deleted successfully",
-        ADD_NOTE: "Note successfully added",
+        ADD_NOTE: "Note added successfully",
+        CHANGE_NOTE: "Note updated successfully",
         DELETE_NOTE: "Note deleted successfully",
+        FILTER_TAGS: "Filter by tags, comma separated",
         EXIT: "Good bye!",
         INVALID_CMD: "Invalid command.",
         ADD_CITY: "Enter city",
@@ -90,8 +104,8 @@ class Commands:
         ADD_ADR: "Address added successfully",
         UPD_ADR: "Address updated successfully",
         QUIT: "'q' to quit",
-        QUIT_ADD: "Quit adding address",
-        QUIT_UPD: "Quit updating address",
+        QUIT_ADD_ADR: "Quit adding address",
+        QUIT_UPD_ADR: "Quit updating address",
         PROCEED: "'enter' to proceed",
         UPD_CITY: "Update city name",
         UPD_STR: "Update street name",
@@ -114,5 +128,6 @@ class Commands:
         NO_CITY: "City name is required",
         NO_STR: "Street name is required",
         NO_BLD: "Building number is required",
-        ADR_EXISTS: "Address already exists"
+        ADR_EXISTS: "Address already exists",
+        NO_ARGS: "Not enough arguments"
     }

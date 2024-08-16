@@ -36,12 +36,12 @@ def get_response(cmd: str, args: List):
             change_address(args)
         case Commands.ADD_NOTE:
             add_note()
-        case Commands.EDIT_NOTE:
+        case Commands.CHANGE_NOTE:
             change_note(args)
         case Commands.DELETE_NOTE:
             delete_note(args)
         case Commands.SHOW_NOTES:
-            show_notes(args)
+            show_notes()
 
 
 def save_session():
@@ -194,7 +194,7 @@ def add_address(args: List[str]) -> str:
         message = Commands.errors[Commands.ADR_EXISTS]
         return message
 
-    address_params: AddressParams = {
+    address_params = {
         Params.CITY: None,
         Params.STREET: None,
         Params.BUILDING: None
@@ -209,7 +209,7 @@ def add_address(args: List[str]) -> str:
         messages = get_messages(address_params)
         user_input = input(messages["message"])
         if user_input == Commands.QUIT:
-            message = Commands.messages[Commands.QUIT_ADD]
+            message = Commands.messages[Commands.QUIT_ADD_ADR]
             break
 
         if user_input:
@@ -233,7 +233,6 @@ def get_messages(address_params: AddressParams) -> Dict:
         messages["message"] = f"{Commands.messages[Commands.ADD_BLD]} ({Commands.messages[Commands.QUIT]}): "
         messages["error"] = Commands.errors[Commands.NO_BLD]
         messages["param"] = Params.BUILDING
-
     return messages
 
 
@@ -253,8 +252,7 @@ def change_address(args: List[str]) -> str:
         Params.STREET: record.address.street,
         Params.BUILDING: record.address.building
     }
-
-    update_messages = {
+    messages = {
         Params.CITY: Commands.messages[Commands.UPD_CITY],
         Params.STREET: Commands.messages[Commands.UPD_STR],
         Params.BUILDING: Commands.messages[Commands.UPD_BLD],
@@ -262,31 +260,29 @@ def change_address(args: List[str]) -> str:
 
     message = Commands.messages[Commands.UPD_ADR]
     for param in address_params:
-        user_input = input(f"{update_messages[param]} [{address_params[param]}] ({Commands.messages[Commands.QUIT]}, "
+        user_input = input(f"{messages[param]} [{address_params[param]}] ({Commands.messages[Commands.QUIT]}, "
                            f"{Commands.messages[Commands.PROCEED]}): ")
         if user_input == Commands.QUIT:
-            message = Commands.messages[Commands.QUIT_UPD]
+            message = Commands.messages[Commands.QUIT_UPD_ADR]
             break
 
         if user_input:
             address_params[param] = user_input
             record.update_address(address_params)
-
     return message
 
 
 @show_message
 def add_note() -> str:
-    note_params = {"title": "", "text": "", "tags": List[str]}
-
+    note_params = {"title": "", "text": "", "tags": []}
     messages = {
         "title": {
-            "msg": Commands.messages[Commands.ENTER_TITLE],
+            "msg": f"{Commands.messages[Commands.ADD_TITLE]} ({Commands.messages[Commands.QUIT]}): ",
             "err": Commands.errors[Commands.NO_TITLE],
             "type": "title"
         },
         "text": {
-            "msg": Commands.messages[Commands.ENTER_TEXT],
+            "msg": f"{Commands.messages[Commands.ADD_TEXT]} ({Commands.messages[Commands.QUIT]}): ",
             "err": Commands.errors[Commands.NO_TEXT],
             "type": "text"
         }
@@ -295,42 +291,76 @@ def add_note() -> str:
     result = Commands.messages[Commands.ADD_NOTE]
     while True:
         if note_params["title"] and note_params["text"] and not note_book.find_note(note_params["title"]):
-            tags_input = input(Commands.messages[Commands.ENTER_TAGS])
-            note_params["tags"] = tags_input.split(",") if tags_input else None
-            note_book.add_note(note_params["title"], note_params["text"], note_params["tags"])
+            tags_input = input(f"{Commands.messages[Commands.ADD_TAGS]} ({Commands.messages[Commands.QUIT]}): ")
+            note_params["tags"] = tags_input.split(",") if tags_input else []
+            note_book.add_note(note_params)
             break
 
         message = messages["title"] if not note_params["title"] else messages["text"]
         user_input = input(message["msg"])
         if user_input == "q":
-            result = "Quit adding note"
+            result = Commands.messages[Commands.QUIT_ADD_NOTE]
             break
 
         if user_input:
             note_params[message["type"]] = user_input
         else:
             print(message["err"])
-
     return result
 
 
 @show_message
 def change_note(args: List[str]) -> str:
-    pass
+    if len(args) == 0:
+        return Commands.errors[Commands.NO_ARGS]
+
+    note = note_book.find_note(args)
+    if not note:
+        return Commands.errors[Commands.NOTE_NOT_FOUND]
+
+    note_params = {"title": note.title, "text": note, "tags": note.tags}
+    messages = {
+        "title": f"{Commands.messages[Commands.UPD_TITLE]} ({Commands.messages[Commands.QUIT]}, "
+                 f"{Commands.messages[Commands.PROCEED]}): ",
+        "text": f"{Commands.messages[Commands.UPD_TEXT]} ({Commands.messages[Commands.QUIT]}, "
+                 f"{Commands.messages[Commands.PROCEED]}): ",
+        "tags": f"{Commands.messages[Commands.UPD_TAGS]} ({Commands.messages[Commands.QUIT]}, "
+                 f"{Commands.messages[Commands.PROCEED]}): ",
+    }
+    result = Commands.messages[Commands.CHANGE_NOTE]
+
+    for param in note_params:
+        user_input = input(messages[param])
+        if user_input == "q":
+            result = Commands.messages[Commands.QUIT_UPD_NOTE]
+            break
+
+        if user_input:
+            note_params[param] = user_input
+
+    note.update_note(note_params)
+    return result
 
 
 @show_message
 def delete_note(args: List[str]) -> str:
+    if len(args) == 0:
+        return Commands.errors[Commands.NO_ARGS]
+
     message = Commands.errors[Commands.NOTE_NOT_FOUND]
-    if len(args) > 0 and note_book.find_note(args[0]):
-        note_book.remove_note(args[0])
+    if len(args) > 0 and note_book.find_note(args):
+        note_book.remove_note(args)
         message = Commands.messages[Commands.DELETE_NOTE]
     return message
 
 
 @show_message
-def show_notes(args: List[str]) -> str:
+def show_notes() -> str:
     message = Commands.errors[Commands.NOTES_EMPTY]
-    if bool(note_book):
+    user_input = input(f"{Commands.messages[Commands.FILTER_TAGS]} or {Commands.messages[Commands.PROCEED]}: ")
+    if user_input:
+        trimmed = [tag.strip() for tag in user_input.split(",")]
+        message = note_book.get_notes_by_tag(trimmed)
+    elif bool(note_book):
         message = str(note_book)
     return message
