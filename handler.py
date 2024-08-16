@@ -41,6 +41,8 @@ def get_response(cmd: str, args: List):
             change_note(args)
         case Commands.DELETE_NOTE:
             delete_note(args)
+        case Commands.SORT_NOTES:
+            sort_notes(args)
         case Commands.SHOW_NOTES:
             show_notes()
         case Commands.FIND:
@@ -361,13 +363,18 @@ def delete_note(args: List[str]) -> str:
 
 
 @show_message
+def sort_notes(args: List[str]) -> str:
+    message = Commands.errors[Commands.NO_ARGS]
+    if len(args) > 0:
+        trimmed = [tag.strip() for tag in args]
+        message = note_book.get_notes_by_tag(trimmed)
+    return message
+
+
+@show_message
 def show_notes() -> str:
     message = Commands.errors[Commands.NOTES_EMPTY]
-    user_input = input(f"{Commands.messages[Commands.FILTER_TAGS]} or {Commands.messages[Commands.PROCEED]}: ")
-    if user_input:
-        trimmed = [tag.strip() for tag in user_input.split(",")]
-        message = note_book.get_notes_by_tag(trimmed)
-    elif bool(note_book):
+    if bool(note_book):
         message = str(note_book)
     return message
 

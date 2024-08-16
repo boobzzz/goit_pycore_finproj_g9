@@ -26,7 +26,7 @@ class Commands:
     UPD_TITLE = "update-title"
     UPD_TEXT = "update-text"
     UPD_TAGS = "update-tags"
-    FILTER_TAGS = "filter-tags"
+    SORT_NOTES = "sort-notes"
     EMPTY = "empty"
     NOT_FOUND = "not-found"
     PHONE_NOT_FOUND = "phone-not-found"
@@ -84,6 +84,7 @@ class Commands:
         ADD_NOTE,
         CHANGE_NOTE,
         DELETE_NOTE,
+        SORT_NOTES,
         SHOW_NOTES,
         HELLO,
         FIND,
@@ -109,7 +110,6 @@ class Commands:
         ADD_NOTE: "Note added successfully",
         CHANGE_NOTE: "Note updated successfully",
         DELETE_NOTE: "Note deleted successfully",
-        FILTER_TAGS: "Filter by tags, comma separated",
         EXIT: "Good bye!",
         EXIT_KB: "\nGood bye! [session not saved]",
         INVALID_CMD: "Invalid command.",
