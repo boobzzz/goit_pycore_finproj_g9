@@ -34,6 +34,7 @@ class Commands:
     EXIT_KB = "exit-kb"
     INVALID_CMD = "invalid-command"
     INVALID_PHONE = "invalid-phone"
+    INVALID_NUMBER = "invalid-number"
     NO_RECORD = "no-record"
     ADD_CITY = "enter-city"
     UPD_CITY = "update-city"
@@ -57,6 +58,17 @@ class Commands:
     NOTE_NOT_FOUND = "note-not-found"
     NOTES_EMPTY = "notes-empty"
     NO_ARGS = "not-enough-args"
+    FIND = "find"
+    LIKE = "like"
+    NAME = "name"
+    BIRTHDAY = "birthday"
+    ADDRESS = "address"
+    CITY = "city"
+    STREET = "street"
+    BUILDING = "building"
+
+
+    finds = [NAME, PHONE, BIRTHDAY, ADDRESS, CITY, STREET, BUILDING] # tba: e-mail
 
     commands = [
         ADD,
@@ -74,6 +86,7 @@ class Commands:
         DELETE_NOTE,
         SHOW_NOTES,
         HELLO,
+        FIND,
         CLOSE,
         EXIT
     ]
@@ -118,6 +131,7 @@ class Commands:
         NOT_FOUND: "Record was not found",
         EMPTY: "Address book is empty",
         INVALID_PHONE: "Invalid phone format",
+        INVALID_NUMBER: "Invalid number argument",
         PHONE_EXISTS: "Phone already exists",
         PHONE_NOT_FOUND: "Phone was not found",
         NO_TITLE: "Note title is required",

@@ -3,6 +3,7 @@ from commands import Commands
 from decorators import input_error, show_message
 from session_handler import save_data, load_data
 from address import AddressParams, Params
+from boterror import BotError
 import utils
 
 loaded_data = load_data()
@@ -42,6 +43,8 @@ def get_response(cmd: str, args: List):
             delete_note(args)
         case Commands.SHOW_NOTES:
             show_notes()
+        case Commands.FIND:
+            find(args)
 
 
 def save_session():
@@ -156,7 +159,7 @@ def birthdays(args: List[str]) -> str:
         try:
             delta = int(args[0])
         except IndexError:
-            return Commands.messages.get(Commands.INVALID_CMD)
+            return Commands.messages.get(Commands.INVALID_NUMBER)
     message = Commands.errors.get(Commands.EMPTY)
     bd_entries = []
     if bool(address_book):
@@ -366,4 +369,32 @@ def show_notes() -> str:
         message = note_book.get_notes_by_tag(trimmed)
     elif bool(note_book):
         message = str(note_book)
+    return message
+
+
+@input_error
+@show_message
+def find(args: List[str]) -> str:
+    # if len(args) < 2: return Commands.messages.get(Commands.INVALID_CMD)
+    if len(args) < 2: raise BotError(Commands.messages.get(Commands.INVALID_CMD))
+    field = args[0]
+    if field not in Commands.finds: raise BotError(Commands.messages.get(Commands.INVALID_CMD))
+    perfect_match = False
+    if len(args) == 2:
+        query = args[1]
+        perfect_match = True
+    elif len(args) > 2:
+        like_keyword = args[1]
+        query = ''.join(args[2:])
+        if like_keyword != Commands.LIKE: raise BotError(Commands.messages.get(Commands.INVALID_CMD))
+    
+    results = []
+    for record in address_book.values():
+        if record.find_match(field, query, perfect_match):
+            results.append(record)
+    message = "Nothing found"
+    if results:
+        message = ""
+        for record in results:
+            message += f"{str(record)}\n"
     return message
