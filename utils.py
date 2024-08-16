@@ -1,12 +1,12 @@
 from datetime import datetime, timedelta
 from record import Record
-from typing import Union
+from typing import Union, Tuple
 
 FORMAT = "%d.%m.%Y"
 BD_INTERVAL = 7
 
 
-def get_congrats_date(record_bd_now: datetime) -> datetime:
+def get_congrats_date(record_bd_now: datetime) -> Tuple:
     result = record_bd_now
     if record_bd_now.weekday() == 5:
         result = record_bd_now + timedelta(days=2)
@@ -15,7 +15,7 @@ def get_congrats_date(record_bd_now: datetime) -> datetime:
     return result, record_bd_now
 
 
-def is_bd_in_range(record: Record, delta: Union[int, None]) -> datetime:
+def is_bd_in_range(record: Record, delta: Union[int, None]) -> Union[datetime, None]:
     today = datetime.today()
     if record.birthday is None: return None
     record_bd_now = record.birthday.bd_date.replace(year=today.year)
