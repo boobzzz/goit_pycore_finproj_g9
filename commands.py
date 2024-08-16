@@ -130,7 +130,7 @@ class Commands:
         CHANGE_NOTE: "Note updated successfully",
         DELETE_NOTE: "Note deleted successfully",
         EXIT: "Good bye!",
-        EXIT_KB: "\nGood bye! [session not saved]",
+        EXIT_KB: "Good bye! [session not saved]",
         INVALID_CMD: "Invalid command.",
         ADD_CITY: "Enter city",
         ADD_STR: "Enter street",
