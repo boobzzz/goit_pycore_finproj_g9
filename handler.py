@@ -47,6 +47,14 @@ def get_response(cmd: str, args: List):
             show_notes()
         case Commands.FIND:
             find(args)
+        case Commands.ADD_EMAIL:
+            return add_email(args)
+        case Commands.CHANGE_EMAIL:
+            return change_email(args)
+        case Commands.DELETE_EMAIL:
+            return delete_email(args)
+        case Commands.SHOW_EMAIL:
+            return show_email(args)
 
 
 def save_session():
@@ -410,3 +418,63 @@ def find(args: List[str]) -> str:
         for record in results:
             message += f"{str(record)}\n"
     return message
+
+@input_error
+@show_message
+def add_email(args: List[str]) -> str:
+    if len(args) < 2:
+        return Commands.messages.get(Commands.INVALID_CMD)
+    name, email = args
+    record = address_book.find_record(name)
+    if not record:
+        return Commands.errors.get(Commands.NOT_FOUND)
+    error = record.add_email(email)
+    if error:
+        return error
+    return Commands.messages.get(Commands.ADD_EMAIL)
+
+@input_error
+@show_message
+def change_email(args: List[str]) -> str:
+    if len(args) < 3:
+        return Commands.messages.get(Commands.INVALID_CMD)
+    name, old_email, new_email = args
+    record = address_book.find_record(name)
+    if not record:
+        return Commands.errors.get(Commands.NOT_FOUND)
+    error = record.update_email(old_email, new_email)
+    if error:
+        return error
+    return Commands.messages.get(Commands.CHANGE_EMAIL)
+
+@input_error
+@show_message
+def delete_email(args: List[str]) -> str:
+    if len(args) < 2:
+        return Commands.messages.get(Commands.INVALID_CMD)
+    name, email = args
+    record = address_book.find_record(name)
+    if not record:
+        return Commands.errors.get(Commands.NOT_FOUND)
+    error = record.remove_email(email)
+    if error:
+        return error
+    return Commands.messages.get(Commands.DELETE_EMAIL)
+
+@input_error
+@show_message
+def show_email(args: List[str]) -> str:
+    if len(args) != 1:
+        return Commands.messages.get(Commands.INVALID_CMD)
+    
+    name = args[0]
+    
+    record = address_book.find_record(name)
+    if not record:
+        return Commands.errors.get(Commands.NOT_FOUND)
+    
+    emails = record.emails
+    if not emails:
+        return Commands.errors.get(Commands.EMAIL_NOT_FOUND)
+    
+    return f"Emails: {', '.join(e.value for e in emails)}"

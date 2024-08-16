@@ -67,9 +67,19 @@ class Commands:
     CITY = "city"
     STREET = "street"
     BUILDING = "building"
+    EMAIL = "email"
+
+    ADD_EMAIL = "add-email"
+    CHANGE_EMAIL = "change-email"
+    DELETE_EMAIL = "delete-email"
+    SHOW_EMAIL = "show-email"
+
+    EMAIL_EXISTS = "email-exists"
+    EMAIL_NOT_FOUND = "email-not-found"
+    INVALID_EMAIL = "invalid-email"
 
 
-    finds = [NAME, PHONE, BIRTHDAY, ADDRESS, CITY, STREET, BUILDING] # tba: e-mail
+    finds = [NAME, PHONE, BIRTHDAY, ADDRESS, CITY, STREET, BUILDING, EMAIL] # tba: e-mail
 
     commands = [
         ADD,
@@ -90,7 +100,11 @@ class Commands:
         HELLO,
         FIND,
         CLOSE,
-        EXIT
+        EXIT,
+        ADD_EMAIL,
+        CHANGE_EMAIL,
+        DELETE_EMAIL,
+        SHOW_EMAIL,
     ]
 
     messages = {
@@ -125,7 +139,12 @@ class Commands:
         PROCEED: "'enter' to proceed",
         UPD_CITY: "Update city name",
         UPD_STR: "Update street name",
-        UPD_BLD: "Update building number"
+        UPD_BLD: "Update building number",
+        ADD_EMAIL: "Email added successfully",
+        CHANGE_EMAIL: "Email updated successfully",
+        DELETE_EMAIL: "Email deleted successfully",
+        SHOW_EMAIL: "Showing email",
+        INVALID_EMAIL: "Invalid email address format",
     }
 
     errors = {
@@ -146,5 +165,8 @@ class Commands:
         NO_STR: "Street name is required",
         NO_BLD: "Building number is required",
         ADR_EXISTS: "Address already exists",
-        NO_ARGS: "Not enough arguments"
+        NO_ARGS: "Not enough arguments",
+        EMAIL_EXISTS: "Email already exists",
+        EMAIL_NOT_FOUND: "Email was not found",
+        INVALID_EMAIL: "Invalid email format",
     }
