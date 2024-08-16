@@ -31,6 +31,7 @@ class Commands:
     NOT_FOUND = "not-found"
     PHONE_NOT_FOUND = "phone-not-found"
     PHONE_EXISTS = "phone-exists"
+    EXIT_KB = "exit-kb"
     INVALID_CMD = "invalid-command"
     INVALID_PHONE = "invalid-phone"
     NO_RECORD = "no-record"
@@ -97,6 +98,7 @@ class Commands:
         DELETE_NOTE: "Note deleted successfully",
         FILTER_TAGS: "Filter by tags, comma separated",
         EXIT: "Good bye!",
+        EXIT_KB: "\nGood bye! [session not saved]",
         INVALID_CMD: "Invalid command.",
         ADD_CITY: "Enter city",
         ADD_STR: "Enter street",
@@ -113,9 +115,8 @@ class Commands:
     }
 
     errors = {
-        INVALID_CMD: "Invalid command.",
-        EMPTY: "Address book is empty",
         NOT_FOUND: "Record was not found",
+        EMPTY: "Address book is empty",
         INVALID_PHONE: "Invalid phone format",
         PHONE_EXISTS: "Phone already exists",
         PHONE_NOT_FOUND: "Phone was not found",
