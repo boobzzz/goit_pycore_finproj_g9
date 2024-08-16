@@ -16,7 +16,7 @@ def main():
     print(Commands.messages[Commands.WELCOME])
     while True:
         try:
-            cmd, *args = parse_input(input("Enter a command: "))
+            cmd, *args = parse_input(input(Commands.messages[Commands.ENTER_CMD]))
         except KeyboardInterrupt:
             print(Commands.messages[Commands.EXIT_KB])
             break
