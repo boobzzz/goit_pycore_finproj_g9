@@ -8,9 +8,12 @@ class Email(Field):
         self.validate_email()
 
     def validate_email(self):
-        email_regex = re.compile(r"[^@]+@[^@]+\.[^@]+")
+        email_regex = re.compile(
+            r"^(?=.{1,256}$)(?:(?!@)[\w&'*+._%-]+(?:(?<=\w)\.[\w&'*+._%-]+)*|(?:(?!\d+@)[\w&'*+._%-]+(?:(?<=\w)\.[\w&'*+._%-]+)*))@(?:(?!\d+)[\w&'*+._%-]+(?:(?<=\w)\.[\w&'*+._%-]+)*|(?:(?!\d+)[\w&'*+._%-]+(?:(?<=\w)\.[\w&'*+._%-]+)*))\.[a-zA-Z]{2,}$",
+            re.IGNORECASE
+        )
         if email_regex.fullmatch(self.value):
-            self.value = self.value.lower()  
+            self.value = self.value.lower()
         else:
             self.value = None
 
