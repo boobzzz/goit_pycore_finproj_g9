@@ -195,6 +195,7 @@ def birthdays(args: List[str]) -> str:
     return message
 
 
+@input_error
 @show_message
 def add_address(args: List[str]) -> str:
     message = Commands.errors[Commands.NO_RECORD]
@@ -252,6 +253,7 @@ def get_messages(address_params: AddressParams) -> Dict:
     return messages
 
 
+@input_error
 @show_message
 def change_address(args: List[str]) -> str:
     message = Commands.errors[Commands.NO_RECORD]
@@ -288,6 +290,7 @@ def change_address(args: List[str]) -> str:
     return message
 
 
+@input_error
 @show_message
 def add_note() -> str:
     note_params = {"title": "", "text": "", "tags": []}
@@ -325,6 +328,7 @@ def add_note() -> str:
     return result
 
 
+@input_error
 @show_message
 def change_note(args: List[str]) -> str:
     if len(args) == 0:
@@ -395,7 +399,6 @@ def show_notes() -> str:
 @input_error
 @show_message
 def find(args: List[str]) -> str:
-    # if len(args) < 2: return Commands.messages.get(Commands.INVALID_CMD)
     if len(args) < 2: raise BotError(Commands.messages.get(Commands.INVALID_CMD))
     field = args[0]
     if field not in Commands.finds: raise BotError(Commands.messages.get(Commands.INVALID_CMD))

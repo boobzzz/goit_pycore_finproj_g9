@@ -17,9 +17,11 @@ class Commands:
     HELLO = "hello"
     CLOSE = "close"
     EXIT = "exit"
+    GENERIC_ERROR = 'error'
 
     WELCOME = "welcome"
     ENTER_CMD = "enter-command"
+    CANCELLED = "cancelled"
     ADD_TITLE = "enter-title"
     ADD_TEXT = "enter-text"
     ADD_TAGS = "enter-tags"
@@ -59,6 +61,7 @@ class Commands:
     NOTES_NOT_FOUND = "notes-not-found"
     NOTES_EMPTY = "notes-empty"
     NO_ARGS = "not-enough-args"
+
     FIND = "find"
     LIKE = "like"
     NAME = "name"
@@ -110,6 +113,7 @@ class Commands:
     messages = {
         WELCOME: "Welcome to the assistant bot!",
         ENTER_CMD: "Enter a command: ",
+        CANCELLED: "\nCancelled",
         ADD_TITLE: "Enter note title",
         ADD_TEXT: "Enter note text",
         ADD_TAGS: "Add note tags, comma separated (optional)",
@@ -169,4 +173,5 @@ class Commands:
         EMAIL_EXISTS: "Email already exists",
         EMAIL_NOT_FOUND: "Email was not found",
         INVALID_EMAIL: "Invalid email format",
+        GENERIC_ERROR: "An error happened.",
     }
