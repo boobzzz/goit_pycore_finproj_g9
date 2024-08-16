@@ -89,7 +89,7 @@ class Record:
         else:
             return Commands.errors.get(Commands.EMAIL_EXISTS)
 
-    def edit_email(self, current: str, new: str) -> str:
+    def update_email(self, current: str, new: str) -> str:
         found_email = self.find_email(Email(current))
         if not found_email:
             return Commands.errors.get(Commands.EMAIL_NOT_FOUND)
@@ -116,6 +116,7 @@ class Record:
                 "index": values.index(email.value)
             }
         return found
+
 
     def add_birthday(self, date: str):
         self.__birthday = Birthday(date)

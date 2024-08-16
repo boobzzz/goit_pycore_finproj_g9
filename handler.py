@@ -465,7 +465,15 @@ def show_email(args: List[str]) -> str:
     record = address_book.find_record(name)
     if not record:
         return Commands.errors.get(Commands.NOT_FOUND)
-    email = record.get_email()
-    if not email:
-        return Commands.errors.get(Commands.EMAIL_NOT_FOUND)
-    return f"{Commands.messages.get(Commands.SHOW_EMAIL)}: {email}"
+    if len(args) > 1:
+        email = args[1]
+        email_found = record.find_email(Email(email))
+        if not email_found:
+            return Commands.errors.get(Commands.EMAIL_NOT_FOUND)
+        return f"{Commands.messages.get(Commands.SHOW_EMAIL)}: {email_found['email'].value}"
+    else:
+        # Handle the case where no email is provided
+        emails = record.emails
+        if not emails:
+            return Commands.errors.get(Commands.EMAIL_NOT_FOUND)
+        return f"Emails: {', '.join(e.value for e in emails)}"
