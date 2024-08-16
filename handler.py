@@ -459,20 +459,17 @@ def delete_email(args: List[str]) -> str:
 @input_error
 @show_message
 def show_email(args: List[str]) -> str:
-    if len(args) < 1:
+    if len(args) != 1:
         return Commands.messages.get(Commands.INVALID_CMD)
+    
     name = args[0]
+    
     record = address_book.find_record(name)
     if not record:
         return Commands.errors.get(Commands.NOT_FOUND)
-    if len(args) > 1:
-        email = args[1]
-        email_found = record.find_email(Email(email))
-        if not email_found:
-            return Commands.errors.get(Commands.EMAIL_NOT_FOUND)
-        return f"{Commands.messages.get(Commands.SHOW_EMAIL)}: {email_found['email'].value}"
-    else:
-        emails = record.emails
-        if not emails:
-            return Commands.errors.get(Commands.EMAIL_NOT_FOUND)
-        return f"Emails: {', '.join(e.value for e in emails)}"
+    
+    emails = record.emails
+    if not emails:
+        return Commands.errors.get(Commands.EMAIL_NOT_FOUND)
+    
+    return f"Emails: {', '.join(e.value for e in emails)}"
