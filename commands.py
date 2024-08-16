@@ -66,6 +66,7 @@ class Commands:
     CITY = "city"
     STREET = "street"
     BUILDING = "building"
+    EMAIL = "email"
 
     ADD_EMAIL = "add-email"
     CHANGE_EMAIL = "change-email"
@@ -77,7 +78,7 @@ class Commands:
     INVALID_EMAIL = "invalid-email"
 
 
-    finds = [NAME, PHONE, BIRTHDAY, ADDRESS, CITY, STREET, BUILDING] # tba: e-mail
+    finds = [NAME, PHONE, BIRTHDAY, ADDRESS, CITY, STREET, BUILDING, EMAIL] # tba: e-mail
 
     commands = [
         ADD,
