@@ -15,3 +15,6 @@ class Birthday(Field):
     @property
     def bd_date(self) -> datetime:
         return self.__bd_date
+
+    def __str__(self):
+        return self.bd_date.strftime(FORMAT)
