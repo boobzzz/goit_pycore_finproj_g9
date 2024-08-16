@@ -2,12 +2,12 @@ from typing import List, Dict
 from commands import Commands
 from decorators import input_error, show_message
 from session_handler import save_data, load_data
-from note_book import NoteBook
 from address import AddressParams, Params
 import utils
 
-address_book = load_data()
-note_book = NoteBook()
+loaded_data = load_data()
+address_book = loaded_data["address_book"]
+note_book = loaded_data["note_book"]
 
 
 def get_response(cmd: str, args: List):
@@ -45,7 +45,10 @@ def get_response(cmd: str, args: List):
 
 
 def save_session():
-    save_data(address_book)
+    save_data({
+        "address_book": address_book,
+        "note_book": note_book
+    })
 
 
 @show_message
