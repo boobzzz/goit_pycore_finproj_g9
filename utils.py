@@ -1,3 +1,7 @@
+"""
+This file is responsible for some utility functions, which help process data in some niche cases.
+"""
+
 from datetime import datetime, timedelta
 from record import Record
 from typing import Union, Tuple

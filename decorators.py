@@ -1,3 +1,7 @@
+"""
+This file is responsible for the decorators - one wrapping functions for error handling, another - for text output.
+"""
+
 from functools import wraps
 from boterror import BotError
 from texts import Texts

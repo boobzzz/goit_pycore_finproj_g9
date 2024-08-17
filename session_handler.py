@@ -1,3 +1,7 @@
+"""
+This file is responsible for the functions, which help keeping the session between launches.
+"""
+
 from address_book import AddressBook
 from note_book import NoteBook
 import pickle

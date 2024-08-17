@@ -1,3 +1,7 @@
+"""
+This file is responsible for the AddressBook class, which is holding all the records.
+"""
+
 from collections import UserDict
 from record import Record
 

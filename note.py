@@ -1,3 +1,7 @@
+"""
+This file is responsible for the note classes - those used to keep an individual note.
+"""
+
 from typing import List, TypedDict
 from field import Field
 
