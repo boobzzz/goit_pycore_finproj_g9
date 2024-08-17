@@ -14,6 +14,8 @@ class Commands:
     UPD_ADR = "upd-address"
     CHANGE_ADR = "change-address"
     BD_SOON = "birthdays"
+    BD_FOUND = "bd-found"
+    BD_NOT_FOUND = "bd-not-found"
     HELLO = "hello"
     CLOSE = "close"
     EXIT = "exit"
@@ -22,6 +24,7 @@ class Commands:
     WELCOME = "welcome"
     ENTER_CMD = "enter-command"
     CANCELLED = "cancelled"
+    CONTACTS_LIST = "contacts-list"
     ADD_TITLE = "enter-title"
     ADD_TEXT = "enter-text"
     ADD_TAGS = "enter-tags"
@@ -82,7 +85,7 @@ class Commands:
     INVALID_EMAIL = "invalid-email"
 
 
-    finds = [NAME, PHONE, BIRTHDAY, ADDRESS, CITY, STREET, BUILDING, EMAIL] # tba: e-mail
+    finds = [NAME, PHONE, BIRTHDAY, ADDRESS, CITY, STREET, BUILDING, EMAIL]
 
     commands = [
         ADD,
@@ -112,43 +115,45 @@ class Commands:
 
     messages = {
         WELCOME: "Welcome to the assistant bot!",
-        ENTER_CMD: "Enter a command: ",
+        ENTER_CMD: "\nEnter a command: ",
         CANCELLED: "\nCancelled",
+        CONTACTS_LIST: "Full contact list:\n\n",
         ADD_TITLE: "Enter note title",
         ADD_TEXT: "Enter note text",
         ADD_TAGS: "Add note tags, comma separated (optional)",
         UPD_TITLE: "Update note title",
         UPD_TEXT: "Update note text",
         UPD_TAGS: "Update note tags, comma separated",
-        QUIT_ADD_NOTE: "Quit adding note",
-        QUIT_UPD_NOTE: "Quit updating note",
+        QUIT_ADD_NOTE: "Quit adding note.",
+        QUIT_UPD_NOTE: "Quit updating note.",
         HELLO: "How can I help you?",
-        ADD: "Record added successfully",
-        CHANGE: "Record updated successfully",
-        DELETE: "Record deleted successfully",
-        ADD_NOTE: "Note added successfully",
-        CHANGE_NOTE: "Note updated successfully",
-        DELETE_NOTE: "Note deleted successfully",
+        ADD: "Record added successfully.",
+        CHANGE: "Record updated successfully.",
+        DELETE: "Record deleted successfully.",
+        ADD_NOTE: "Note added successfully.",
+        CHANGE_NOTE: "Note updated successfully.",
+        DELETE_NOTE: "Note deleted successfully.",
         EXIT: "Good bye!",
         EXIT_KB: "Good bye! [session not saved]",
         INVALID_CMD: "Invalid command.",
         ADD_CITY: "Enter city",
         ADD_STR: "Enter street",
         ADD_BLD: "Enter building",
-        ADD_ADR: "Address added successfully",
-        UPD_ADR: "Address updated successfully",
+        ADD_ADR: "Address added successfully.",
+        UPD_ADR: "Address updated successfully.",
         QUIT: "'q' to quit",
-        QUIT_ADD_ADR: "Quit adding address",
-        QUIT_UPD_ADR: "Quit updating address",
+        QUIT_ADD_ADR: "Quit adding address.",
+        QUIT_UPD_ADR: "Quit updating address.",
         PROCEED: "'enter' to proceed",
         UPD_CITY: "Update city name",
         UPD_STR: "Update street name",
         UPD_BLD: "Update building number",
-        ADD_EMAIL: "Email added successfully",
-        CHANGE_EMAIL: "Email updated successfully",
-        DELETE_EMAIL: "Email deleted successfully",
-        SHOW_EMAIL: "Showing email",
-        INVALID_EMAIL: "Invalid email address format",
+        ADD_EMAIL: "Email added successfully.",
+        CHANGE_EMAIL: "Email updated successfully.",
+        DELETE_EMAIL: "Email deleted successfully.",
+        INVALID_EMAIL: "Invalid email address format.",
+        BD_FOUND: "The following birthdays found:\n",
+        BD_NOT_FOUND: "No upcoming birthdays found.",
     }
 
     errors = {
