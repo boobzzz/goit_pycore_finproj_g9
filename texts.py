@@ -29,6 +29,12 @@ class Texts:
     ENTER_CMD = "enter-command"
     CANCELLED = "cancelled"
     CONTACTS_LIST = "contacts-list"
+    PHONES_LIST = "phones-list"
+    PHONES_EMPTY = "phones-empty"
+    EMAILS_LIST = "emails-list"
+    EMAILS_EMPTY = "email-empty"
+    FIND_LIST = "find-list"
+    FIND_NONE = "find-none"
     HELP_MESSAGE = "help-message"
     ADD_TITLE = "enter-title"
     ADD_TEXT = "enter-text"
@@ -150,6 +156,12 @@ class Texts:
         ENTER_CMD: "\nEnter a command: ",
         CANCELLED: "\nCancelled",
         CONTACTS_LIST: "Full contact list:\n\n",
+        PHONES_LIST: "Full phones list of {}:\n\n",
+        PHONES_EMPTY: "No phones found.",
+        EMAILS_LIST: "Full email list of {}:\n\n",
+        EMAILS_EMPTY: "No emails found.",
+        FIND_LIST: "All contacts satisfying the query:\n\n",
+        FIND_NONE: "No contacts satisfying the query found.",
         HELP_MESSAGE: "List of commands:\n\n",
         ADD_TITLE: "Enter note title",
         ADD_TEXT: "Enter note text",
@@ -159,7 +171,7 @@ class Texts:
         UPD_TAGS: "Update note tags, comma separated",
         QUIT_ADD_NOTE: "Quit adding note.",
         QUIT_UPD_NOTE: "Quit updating note.",
-        HELLO: "How can I help you?",
+        HELLO: "How can I help you? [type help for help]",
         ADD: "Record added successfully.",
         CHANGE: "Record updated successfully.",
         DELETE: "Record deleted successfully.",
@@ -190,26 +202,26 @@ class Texts:
     }
 
     errors = {
-        NOT_FOUND: "Record was not found",
-        EMPTY: "Address book is empty",
-        INVALID_PHONE: "Invalid phone format",
-        INVALID_NUMBER: "Invalid number argument",
-        PHONE_EXISTS: "Phone already exists",
-        PHONE_NOT_FOUND: "Phone was not found",
-        NO_TITLE: "Note title is required",
-        NO_TEXT: "Note text is required",
-        NOTE_EXISTS: "Note already exists",
-        NOTE_NOT_FOUND: "Note was not found",
-        NOTES_NOT_FOUND: "No notes with provided tags",
-        NOTES_EMPTY: "Note book is empty",
-        NO_RECORD: "Record name is required",
-        NO_CITY: "City name is required",
-        NO_STR: "Street name is required",
-        NO_BLD: "Building number is required",
-        ADR_EXISTS: "Address already exists",
-        NO_ARGS: "Not enough arguments",
-        EMAIL_EXISTS: "Email already exists",
-        EMAIL_NOT_FOUND: "Email was not found",
-        INVALID_EMAIL: "Invalid email format",
+        NOT_FOUND: "Record was not found.",
+        EMPTY: "Address book is empty.",
+        INVALID_PHONE: "Invalid phone format.",
+        INVALID_NUMBER: "Invalid number argument.",
+        PHONE_EXISTS: "Phone already exists.",
+        PHONE_NOT_FOUND: "Phone was not found.",
+        NO_TITLE: "Note title is required.",
+        NO_TEXT: "Note text is required.",
+        NOTE_EXISTS: "Note already exists.",
+        NOTE_NOT_FOUND: "Note was not found.",
+        NOTES_NOT_FOUND: "No notes with provided tags.",
+        NOTES_EMPTY: "Note book is empty.",
+        NO_RECORD: "Record name is required.",
+        NO_CITY: "City name is required.",
+        NO_STR: "Street name is required.",
+        NO_BLD: "Building number is required.",
+        ADR_EXISTS: "Address already exists.",
+        NO_ARGS: "Not enough arguments.",
+        EMAIL_EXISTS: "Email already exists.",
+        EMAIL_NOT_FOUND: "Email was not found.",
+        INVALID_EMAIL: "Invalid email format.",
         GENERIC_ERROR: "An error happened.",
     }

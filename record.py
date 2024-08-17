@@ -148,7 +148,7 @@ class Record:
                 return bool(result)
             case Texts.PHONE:
                 for phone in self.phones:
-                    string = phone.value
+                    string = phone.value.casefold()
                     result = re.search(query, string)
                     if result: return True
             case Texts.BIRTHDAY:

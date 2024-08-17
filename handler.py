@@ -94,7 +94,7 @@ def add_contact(args: List[str]) -> str:
 @show_message
 def change_contact(args: List[str]) -> str:
     if len(args) < 3: return Texts.messages.get(Texts.INVALID_CMD)
-    name, phone, new_phone = args
+    name, phone, new_phone = args[:3]
     record = address_book.find_record(name)
     message = Texts.errors.get(Texts.NOT_FOUND)
     if record:
@@ -122,12 +122,15 @@ def delete_contact(args: List[str]) -> str:
 @input_error
 @show_message
 def show_all_phones(args: List[str]) -> str:
-    if len(args) < 1: return Texts.messages.get(Texts.INVALID_CMD)
+    if len(args) < 1: raise BotError(Texts.messages.get(Texts.INVALID_CMD))
     name = args[0]
     record = address_book.find_record(name)
     message = Texts.errors.get(Texts.NOT_FOUND)
     if record:
-        message = record.phones
+        message = Texts.messages.get(Texts.PHONES_EMPTY)
+        if record.phones:
+            message = Texts.messages.get(Texts.PHONES_LIST).format(name)
+            message += ', '.join(p.value for p in record.phones)
     return message
 
 
@@ -146,7 +149,7 @@ def show_all_contacts() -> str:
 @show_message
 def add_birthday(args: List[str]) -> str:
     if len(args) < 2: return Texts.messages.get(Texts.INVALID_CMD)
-    name, birthday = args
+    name, birthday = args[:2]
     record = address_book.find_record(name)
     message = Texts.errors.get(Texts.NOT_FOUND)
     if record:
@@ -346,11 +349,11 @@ def add_note() -> str:
 @show_message
 def change_note(args: List[str]) -> str:
     if len(args) == 0:
-        return Texts.errors[Texts.NO_ARGS]
+        raise BotError(Texts.errors[Texts.NO_ARGS])
 
     note = note_book.find_note(args)
     if not note:
-        return Texts.errors[Texts.NOTE_NOT_FOUND]
+        raise BotError(Texts.errors[Texts.NOTE_NOT_FOUND])
 
     note_params = {"title": note.title, "text": note, "tags": note.tags}
     messages = {
@@ -379,7 +382,7 @@ def change_note(args: List[str]) -> str:
 @show_message
 def delete_note(args: List[str]) -> str:
     if len(args) == 0:
-        return Texts.errors[Texts.NO_ARGS]
+        raise BotError(Texts.errors[Texts.NO_ARGS])
 
     message = Texts.errors[Texts.NOTE_NOT_FOUND]
     if len(args) > 0 and note_book.find_note(args):
@@ -429,9 +432,9 @@ def find(args: List[str]) -> str:
     for record in address_book.values():
         if record.find_match(field, query, perfect_match):
             results.append(record)
-    message = "Nothing found"
+    message = Texts.messages.get(Texts.FIND_NONE)
     if results:
-        message = ""
+        message = Texts.messages.get(Texts.FIND_LIST)
         for record in results:
             message += f"{str(record)}\n"
     return message
@@ -442,10 +445,10 @@ def find(args: List[str]) -> str:
 def add_email(args: List[str]) -> str:
     if len(args) < 2:
         return Texts.messages.get(Texts.INVALID_CMD)
-    name, email = args
+    name, email = args[:2]
     record = address_book.find_record(name)
     if not record:
-        return Texts.errors.get(Texts.NOT_FOUND)
+        raise BotError(Texts.errors.get(Texts.NOT_FOUND))
     error = record.add_email(email)
     if error:
         return error
@@ -457,10 +460,10 @@ def add_email(args: List[str]) -> str:
 def change_email(args: List[str]) -> str:
     if len(args) < 3:
         return Texts.messages.get(Texts.INVALID_CMD)
-    name, old_email, new_email = args
+    name, old_email, new_email = args[:3]
     record = address_book.find_record(name)
     if not record:
-        return Texts.errors.get(Texts.NOT_FOUND)
+        raise BotError(Texts.errors.get(Texts.NOT_FOUND))
     error = record.update_email(old_email, new_email)
     if error:
         return error
@@ -472,10 +475,10 @@ def change_email(args: List[str]) -> str:
 def delete_email(args: List[str]) -> str:
     if len(args) < 2:
         return Texts.messages.get(Texts.INVALID_CMD)
-    name, email = args
+    name, email = args[:2]
     record = address_book.find_record(name)
     if not record:
-        return Texts.errors.get(Texts.NOT_FOUND)
+        raise BotError(Texts.errors.get(Texts.NOT_FOUND))
     error = record.remove_email(email)
     if error:
         return error
@@ -485,20 +488,16 @@ def delete_email(args: List[str]) -> str:
 @input_error
 @show_message
 def show_email(args: List[str]) -> str:
-    if len(args) != 1:
-        return Texts.messages.get(Texts.INVALID_CMD)
-    
+    if len(args) < 1: raise BotError(Texts.messages.get(Texts.INVALID_CMD))
     name = args[0]
-    
     record = address_book.find_record(name)
-    if not record:
-        return Texts.errors.get(Texts.NOT_FOUND)
-    
-    emails = record.emails
-    if not emails:
-        return Texts.errors.get(Texts.EMAIL_NOT_FOUND)
-    
-    return f"Emails: {', '.join(e.value for e in emails)}"
+    message = Texts.errors.get(Texts.NOT_FOUND)
+    if record:
+        message = Texts.messages.get(Texts.EMAILS_EMPTY)
+        if record.emails:
+            message = Texts.messages.get(Texts.EMAILS_LIST).format(name)
+            message += ', '.join(e.value for e in record.emails)
+    return message
 
 
 @input_error
