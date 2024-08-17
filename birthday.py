@@ -1,5 +1,6 @@
 from datetime import datetime
 from field import Field
+from boterror import BotError
 
 FORMAT = "%d.%m.%Y"
 
@@ -10,7 +11,7 @@ class Birthday(Field):
             super().__init__(value)
             self.__bd_date = datetime.strptime(value, FORMAT)
         except ValueError:
-            raise ValueError("Invalid date format. Use DD.MM.YYYY")
+            raise BotError("Invalid date format. Use DD.MM.YYYY")
 
     @property
     def bd_date(self) -> datetime:

@@ -4,6 +4,7 @@ from decorators import input_error, show_message
 from session_handler import save_data, load_data
 from address import AddressParams, Params
 from boterror import BotError
+from birthday import FORMAT
 import utils
 
 loaded_data = load_data()
@@ -128,11 +129,15 @@ def show_all_phones(args: List[str]) -> str:
     return message
 
 
+@input_error
 @show_message
 def show_all_contacts() -> str:
     message = Commands.errors.get(Commands.EMPTY)
-    if bool(address_book):
-        message = str(address_book)
+    if not address_book: raise BotError(Commands.errors.get(Commands.EMPTY))
+    message = Commands.messages.get(Commands.CONTACTS_LIST)
+    message += str(address_book)
+    if len(message) > 1:
+        message = message[:-2]
     return message
 
 
@@ -162,35 +167,43 @@ def show_birthday(args: List[str]) -> str:
     return message
 
 
+@input_error
 @show_message
 def birthdays(args: List[str]) -> str:
     delta = None
     if len(args) >= 1:
         try:
             delta = int(args[0])
-        except IndexError:
-            return Commands.messages.get(Commands.INVALID_NUMBER)
-    message = Commands.errors.get(Commands.EMPTY)
+        except ValueError:
+            raise BotError(Commands.errors.get(Commands.INVALID_NUMBER))
+        else:
+            if delta < 0: raise BotError(Commands.errors.get(Commands.INVALID_NUMBER))
+    if not address_book: raise BotError(Commands.errors.get(Commands.EMPTY))
     bd_entries = []
-    if bool(address_book):
-        message = ""
-        for record in address_book.values():
-            record_bd_now = utils.is_bd_in_range(record, delta)
-            if record_bd_now:
-                dates = utils.get_congrats_date(record_bd_now)
-                entry = {
-                    "name": record.name,
-                    "congrats_date": dates[0],
-                    "birthday": dates[1]
-                }
-                bd_entries.append(entry)
-        bd_entries.sort(key=lambda e: e["congrats_date"])
+    for record in address_book.values():
+        record_bd_now = utils.is_bd_in_range(record, delta)
+        if record_bd_now:
+            dates = utils.get_congrats_date(record_bd_now)
+            entry = {
+                "name": record.name,
+                "congrats_date": dates[0],
+                "birthday": dates[1]
+            }
+            bd_entries.append(entry)
+    bd_entries.sort(key=lambda e: e["congrats_date"])
 
+    if bd_entries:
+        message = Commands.messages.get(Commands.BD_FOUND)
         for entry in bd_entries:
+            entry["congrats_date"] = entry["congrats_date"].strftime(FORMAT)
+            entry["birthday"] = entry["birthday"].strftime(FORMAT)
             if entry["congrats_date"] == entry["birthday"]:
-                message += f"{entry["name"]}: {entry["congrats_date"].date()}\n"
+                message += f"{entry["name"]}: {entry["congrats_date"]}\n"
             else:
-                message += f"{entry["name"]}: {entry["congrats_date"].date()} (birthday @ {entry["birthday"].date()})\n"
+                message += f"{entry["name"]}: {entry["congrats_date"]} (from {entry["birthday"]})\n"
+        message = message[:-1]
+    else:
+        message = Commands.messages.get(Commands.BD_NOT_FOUND)
 
     return message
 

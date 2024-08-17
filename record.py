@@ -9,17 +9,22 @@ import re
 
 class Record:
     def __init__(self, name: str):
-        self.__name = Name(name)
+        self.__name = None
+        self.name = Name(name)
         self.__phones = []
         self.__birthday = None
         self.__address = None
         self.__emails = []
 
     def __str__(self):
-        return (f"Contact name: {self.__name.value}, phones: {'; '.join(p.value for p in self.__phones)}, "
-                f"emails: {'; '.join(e.value for e in self.__emails)}, "
-                f"birthday: {self.__birthday.value if self.__birthday else "none"}, "
-                f"address: {self.__address.value if self.__address else "none"}")
+        contact_card = ""
+        contact_card += "Name: " + (self.name.value if self.name else "undefined")
+        contact_card += "\nPhones: " + (', '.join(p.value for p in self.phones) if self.phones else "none saved")
+        contact_card += "\nEmails: " + (', '.join(e.value for e in self.emails) if self.emails else "none saved")
+        contact_card += "\nAddress: " + (self.address.value if self.address else "not set")
+        contact_card += "\nBirthday: " + (self.birthday.value if self.birthday else "not set")
+        contact_card += '\n'
+        return contact_card
 
     @property
     def name(self):
