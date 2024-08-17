@@ -9,8 +9,7 @@ import re
 
 class Record:
     def __init__(self, name: str):
-        self.__name = None
-        self.name = Name(name)
+        self.__name = Name(name)
         self.__phones = []
         self.__birthday = None
         self.__address = None
