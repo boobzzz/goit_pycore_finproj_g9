@@ -400,14 +400,14 @@ def show_notes() -> str:
 @show_message
 def find(args: List[str]) -> str:
     if len(args) < 2: raise BotError(Commands.messages.get(Commands.INVALID_CMD))
-    field = args[0]
+    field = args[0].casefold()
     if field not in Commands.finds: raise BotError(Commands.messages.get(Commands.INVALID_CMD))
     perfect_match = False
     if len(args) == 2:
         query = args[1]
         perfect_match = True
     elif len(args) > 2:
-        like_keyword = args[1]
+        like_keyword = args[1].casefold()
         query = ''.join(args[2:])
         if like_keyword != Commands.LIKE: raise BotError(Commands.messages.get(Commands.INVALID_CMD))
     

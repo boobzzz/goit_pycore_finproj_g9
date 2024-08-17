@@ -20,7 +20,7 @@ def main():
     print(Commands.messages[Commands.WELCOME])
     advanced_mode = True
     try:
-        bot_completer = WordCompleter(Commands.commands, ignore_case=True)
+        bot_completer = WordCompleter(Commands.commands + [Commands.FIND + ' ' + find for find in Commands.finds], ignore_case=True, sentence=True)
         session = PromptSession(completer=bot_completer)
     except:
         advanced_mode = False
