@@ -1,6 +1,7 @@
+import re
 from typing import TypedDict
 from field import Field
-import re
+
 
 class Email(Field):
     def __init__(self, value: str):

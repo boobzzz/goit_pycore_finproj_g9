@@ -3,6 +3,7 @@ from field import Field
 from boterror import BotError
 
 FORMAT = "%d.%m.%Y"
+UNFORMAT = "DD.MM.YYYY"
 
 
 class Birthday(Field):
@@ -11,7 +12,7 @@ class Birthday(Field):
             super().__init__(value)
             self.__bd_date = datetime.strptime(value, FORMAT)
         except ValueError:
-            raise BotError("Invalid date format. Use DD.MM.YYYY")
+            raise BotError(f"Invalid date format. Use {UNFORMAT}")
 
     @property
     def bd_date(self) -> datetime:

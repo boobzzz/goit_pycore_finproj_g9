@@ -18,6 +18,6 @@ def load_data() -> AddressBook:
     try:
         with open(FILENAME, "rb") as file:
             data = pickle.load(file)
-    except IOError:
+    except Exception:
         pass
     return data

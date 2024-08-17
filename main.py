@@ -1,14 +1,14 @@
 import os
 from typing import Tuple
 from handler import get_response, save_session
-from commands import Commands
+from texts import Texts
 from prompt_toolkit import PromptSession
 from prompt_toolkit.completion import WordCompleter
 
 
 def parse_input(user_input: str) -> Tuple:
     if not user_input:
-        return Commands.INVALID_CMD
+        return Texts.INVALID_CMD
 
     cmd, *args = user_input.split()
     cmd = cmd.strip().lower()
@@ -17,34 +17,34 @@ def parse_input(user_input: str) -> Tuple:
 
 def main():
     os.system('cls' if os.name == 'nt' else 'clear')
-    print(Commands.messages[Commands.WELCOME])
+    print(Texts.messages[Texts.WELCOME])
     advanced_mode = True
     try:
-        bot_completer = WordCompleter(Commands.commands + [Commands.FIND + ' ' + find for find in Commands.finds], ignore_case=True, sentence=True)
+        bot_completer = WordCompleter(Texts.commands + [Texts.FIND + ' ' + find for find in Texts.finds], ignore_case=True, sentence=True)
         session = PromptSession(completer=bot_completer)
     except:
         advanced_mode = False
     while True:
         try:
             if advanced_mode:
-                cmd, *args = parse_input(session.prompt(Commands.messages[Commands.ENTER_CMD]))
+                cmd, *args = parse_input(session.prompt(Texts.messages[Texts.ENTER_CMD]))
             else:
-                cmd, *args = parse_input(input(Commands.messages[Commands.ENTER_CMD]))
+                cmd, *args = parse_input(input(Texts.messages[Texts.ENTER_CMD]))
         except KeyboardInterrupt:
-            print(('' if advanced_mode else '\n') + Commands.messages[Commands.EXIT_KB])
+            print(('' if advanced_mode else '\n') + Texts.messages[Texts.EXIT_KB])
             break
         except EOFError:
-            print(Commands.messages[Commands.EXIT_KB])
+            print(Texts.messages[Texts.EXIT_KB])
             break
-        if cmd in [Commands.CLOSE, Commands.EXIT]:
+        if cmd in [Texts.CLOSE, Texts.EXIT]:
             save_session()
-            print(Commands.messages[Commands.EXIT])
+            print(Texts.messages[Texts.EXIT])
             break
 
-        if cmd in Commands.commands:
+        if cmd in Texts.commands:
             get_response(cmd, args)
         else:
-            print(Commands.messages[Commands.INVALID_CMD])
+            print(Texts.messages[Texts.INVALID_CMD])
 
 
 if __name__ == "__main__":

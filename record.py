@@ -1,10 +1,10 @@
+import re
 from address import Address, AddressParams
 from name import Name
 from phone import Phone, PhoneData
 from email import Email, EmailData
-from commands import Commands
+from texts import Texts
 from birthday import Birthday
-import re
 
 
 class Record:
@@ -48,28 +48,28 @@ class Record:
     def add_phone(self, phone: str) -> str:
         new_phone = Phone(phone)
         if not new_phone.value:
-            return Commands.errors.get(Commands.INVALID_PHONE)
+            return Texts.errors.get(Texts.INVALID_PHONE)
 
         if not self.find_phone(new_phone):
             self.__phones.append(new_phone)
         else:
-            return Commands.errors.get(Commands.PHONE_EXISTS)
+            return Texts.errors.get(Texts.PHONE_EXISTS)
 
     def edit_phone(self, current: str, new: str) -> str:
         found_phone = self.find_phone(Phone(current))
         if not found_phone:
-            return Commands.errors.get(Commands.PHONE_NOT_FOUND)
+            return Texts.errors.get(Texts.PHONE_NOT_FOUND)
 
         new_phone = Phone(new)
         if found_phone["phone"].value == new_phone.value:
-            return Commands.errors.get(Commands.PHONE_EXISTS)
+            return Texts.errors.get(Texts.PHONE_EXISTS)
 
         self.__phones[found_phone["index"]] = new_phone
 
     def remove_phone(self, phone: str) -> str:
         found_phone = self.find_phone(Phone(phone))
         if not found_phone:
-            return Commands.errors.get(Commands.PHONE_NOT_FOUND)
+            return Texts.errors.get(Texts.PHONE_NOT_FOUND)
 
         self.__phones.pop(found_phone["index"])
 
@@ -86,32 +86,32 @@ class Record:
     def add_email(self, email: str) -> str:
         new_email = Email(email)
         if not new_email.value:
-            return Commands.errors.get(Commands.INVALID_EMAIL)
+            return Texts.errors.get(Texts.INVALID_EMAIL)
 
         if not self.find_email(new_email):
             self.__emails.append(new_email)
         else:
-            return Commands.errors.get(Commands.EMAIL_EXISTS)
+            return Texts.errors.get(Texts.EMAIL_EXISTS)
          
     def update_email(self, current: str, new: str) -> str:
         found_email = self.find_email(Email(current))
         if not found_email:
-            return Commands.errors.get(Commands.EMAIL_NOT_FOUND)
+            return Texts.errors.get(Texts.EMAIL_NOT_FOUND)
 
         new_email = Email(new)
     
         if new_email.value is None:
-            return Commands.errors.get(Commands.INVALID_EMAIL)
+            return Texts.errors.get(Texts.INVALID_EMAIL)
 
         if found_email["email"].value == new_email.value:
-            return Commands.errors.get(Commands.EMAIL_EXISTS)
+            return Texts.errors.get(Texts.EMAIL_EXISTS)
 
         self.__emails[found_email["index"]] = new_email
 
     def remove_email(self, email: str) -> str:
         found_email = self.find_email(Email(email))
         if not found_email:
-            return Commands.errors.get(Commands.EMAIL_NOT_FOUND)
+            return Texts.errors.get(Texts.EMAIL_NOT_FOUND)
 
         self.__emails.pop(found_email["index"])
 
@@ -142,41 +142,41 @@ class Record:
             query = query.replace("%", ".*")
             query = query.replace("_", ".{1}")
         match field:
-            case Commands.NAME:
+            case Texts.NAME:
                 string = self.name.value.casefold()
                 result = re.search(query, string)
                 return bool(result)
-            case Commands.PHONE:
+            case Texts.PHONE:
                 for phone in self.phones:
                     string = phone.value
                     result = re.search(query, string)
                     if result: return True
-            case Commands.BIRTHDAY:
+            case Texts.BIRTHDAY:
                 if self.birthday is not None:
                     string = str(self.birthday)
                     result = re.search(query, string)
                     return bool(result)
-            case Commands.ADDRESS:
+            case Texts.ADDRESS:
                 if self.address is not None:
                     string = self.address.value.casefold()
                     result = re.search(query, string)
                     return bool(result)
-            case Commands.CITY:
+            case Texts.CITY:
                 if self.address is not None:
                     string = self.address.city.casefold()
                     result = re.search(query, string)
                     return bool(result)
-            case Commands.STREET:
+            case Texts.STREET:
                 if self.address is not None:
                     string = self.address.street.casefold()
                     result = re.search(query, string)
                     return bool(result)
-            case Commands.BUILDING:
+            case Texts.BUILDING:
                 if self.address is not None:
                     string = self.address.building.casefold()
                     result = re.search(query, string)
                     return bool(result)
-            case Commands.EMAIL:
+            case Texts.EMAIL:
                 for email in self.emails:
                     string = email.value
                     result = re.search(query, string)

@@ -1,4 +1,7 @@
-class Commands:
+from birthday import UNFORMAT
+
+
+class Texts:
     ADD = "add"
     CHANGE = "change"
     DELETE = "delete"
@@ -20,11 +23,13 @@ class Commands:
     CLOSE = "close"
     EXIT = "exit"
     GENERIC_ERROR = 'error'
+    HELP = "help"
 
     WELCOME = "welcome"
     ENTER_CMD = "enter-command"
     CANCELLED = "cancelled"
     CONTACTS_LIST = "contacts-list"
+    HELP_MESSAGE = "help-message"
     ADD_TITLE = "enter-title"
     ADD_TEXT = "enter-text"
     ADD_TAGS = "enter-tags"
@@ -85,7 +90,7 @@ class Commands:
     INVALID_EMAIL = "invalid-email"
 
 
-    finds = [NAME, PHONE, BIRTHDAY, ADDRESS, CITY, STREET, BUILDING, EMAIL]
+    finds = (NAME, PHONE, BIRTHDAY, ADDRESS, CITY, STREET, BUILDING, EMAIL)
 
     commands = [
         ADD,
@@ -111,13 +116,41 @@ class Commands:
         CHANGE_EMAIL,
         DELETE_EMAIL,
         SHOW_EMAIL,
+        HELP,
     ]
+
+    helps = {
+        HELLO: "Show greeting",
+        ADD: "Add a contact or add a phone to a contact",
+        CHANGE: "Change a contact's phone",
+        DELETE: "Delete a contact by name",
+        PHONE: "Show a contact's phone number(s)",
+        ALL: "Show all contacts in the address book with their data",
+        ADD_BD: f"Add a birthday to a contact - in {UNFORMAT} form",
+        SHOW_BD: f"Show contact's birthday, if present, in {UNFORMAT} form",
+        BD_SOON: "Show birthdays in the upcoming week, or in N upcoming days",
+        ADD_ADR: "Add address data to a contact",
+        CHANGE_ADR: "Change address data of a contact",
+        ADD_NOTE: "Add a note",
+        CHANGE_NOTE: "Change a note",
+        DELETE_NOTE: "Delete a note",
+        SORT_NOTES: "Sort notes",
+        SHOW_NOTES: "Show notes",
+        FIND: "Search for contacts",
+        ADD_EMAIL: "Add an email address to a contact",
+        CHANGE_EMAIL: "Change a contact's email address",
+        DELETE_EMAIL: "Delete a contact's email address",
+        SHOW_EMAIL: "Show a contact's email address",
+        HELP: "Show this help message",
+        EXIT: "Exit the application" # CLOSE?
+    }
 
     messages = {
         WELCOME: "Welcome to the assistant bot!",
         ENTER_CMD: "\nEnter a command: ",
         CANCELLED: "\nCancelled",
         CONTACTS_LIST: "Full contact list:\n\n",
+        HELP_MESSAGE: "List of commands:\n\n",
         ADD_TITLE: "Enter note title",
         ADD_TEXT: "Enter note text",
         ADD_TAGS: "Add note tags, comma separated (optional)",
