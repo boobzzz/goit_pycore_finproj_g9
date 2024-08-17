@@ -1,3 +1,7 @@
+"""
+This file is the entry point of the full application. It also handles some special user input values.
+"""
+
 import os
 from typing import Tuple
 from handler import get_response, save_session

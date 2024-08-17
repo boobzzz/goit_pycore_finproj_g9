@@ -1,3 +1,7 @@
+"""
+This file is responsible for the Phone class - the one used to save records' phones.
+"""
+
 from typing import TypedDict
 from field import Field
 import re

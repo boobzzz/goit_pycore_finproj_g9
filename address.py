@@ -1,3 +1,7 @@
+"""
+This file is responsible for the address classes - those used when saving records' addresses.
+"""
+
 from field import Field
 from enum import Enum
 from typing import TypedDict

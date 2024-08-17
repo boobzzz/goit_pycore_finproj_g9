@@ -1,3 +1,7 @@
+"""
+This file is responsible for the email classese - those used when saving records' emails.
+"""
+
 import re
 from typing import TypedDict
 from field import Field

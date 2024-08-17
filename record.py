@@ -1,3 +1,7 @@
+"""
+This file is responsible for the Record class - the one used to keep an individual record.
+"""
+
 import re
 from address import Address, AddressParams
 from name import Name

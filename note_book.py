@@ -1,3 +1,7 @@
+"""
+This file is responsible for the NoteBook class, which is holding all the notes.
+"""
+
 from collections import UserDict
 from typing import List
 from note import Note, NoteParams

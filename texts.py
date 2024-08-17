@@ -1,3 +1,7 @@
+"""
+This file is responsible for keeping all of the plain texts used in the app.
+"""
+
 from birthday import UNFORMAT
 
 

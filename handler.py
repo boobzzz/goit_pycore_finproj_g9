@@ -1,3 +1,7 @@
+"""
+This file is responsible for the user input handling and data saving.
+"""
+
 from typing import List, Dict
 from texts import Texts
 from decorators import input_error, show_message

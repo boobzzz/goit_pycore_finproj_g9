@@ -1,3 +1,7 @@
+"""
+This file is responsible for the Birthday class - the one used to save records' birthdays.
+"""
+
 from datetime import datetime
 from field import Field
 from boterror import BotError
