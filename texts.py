@@ -1,4 +1,7 @@
-class Commands:
+from birthday import UNFORMAT
+
+
+class Texts:
     ADD = "add"
     CHANGE = "change"
     DELETE = "delete"
@@ -20,11 +23,19 @@ class Commands:
     CLOSE = "close"
     EXIT = "exit"
     GENERIC_ERROR = 'error'
+    HELP = "help"
 
     WELCOME = "welcome"
     ENTER_CMD = "enter-command"
     CANCELLED = "cancelled"
     CONTACTS_LIST = "contacts-list"
+    PHONES_LIST = "phones-list"
+    PHONES_EMPTY = "phones-empty"
+    EMAILS_LIST = "emails-list"
+    EMAILS_EMPTY = "email-empty"
+    FIND_LIST = "find-list"
+    FIND_NONE = "find-none"
+    HELP_MESSAGE = "help-message"
     ADD_TITLE = "enter-title"
     ADD_TEXT = "enter-text"
     ADD_TAGS = "enter-tags"
@@ -85,7 +96,7 @@ class Commands:
     INVALID_EMAIL = "invalid-email"
 
 
-    finds = [NAME, PHONE, BIRTHDAY, ADDRESS, CITY, STREET, BUILDING, EMAIL]
+    finds = (NAME, PHONE, BIRTHDAY, ADDRESS, CITY, STREET, BUILDING, EMAIL)
 
     commands = [
         ADD,
@@ -111,13 +122,47 @@ class Commands:
         CHANGE_EMAIL,
         DELETE_EMAIL,
         SHOW_EMAIL,
+        HELP,
     ]
+
+    helps = {
+        HELLO: "Show greeting",
+        ADD: "Add a contact or add a phone to a contact",
+        CHANGE: "Change a contact's phone",
+        DELETE: "Delete a contact by name",
+        PHONE: "Show a contact's phone number(s)",
+        ALL: "Show all contacts in the address book with their data",
+        ADD_BD: f"Add a birthday to a contact - in {UNFORMAT} form",
+        SHOW_BD: f"Show contact's birthday, if present, in {UNFORMAT} form",
+        BD_SOON: "Show birthdays in the upcoming week, or in N upcoming days",
+        ADD_ADR: "Add address data to a contact",
+        CHANGE_ADR: "Change address data of a contact",
+        ADD_NOTE: "Add a note",
+        CHANGE_NOTE: "Change a note",
+        DELETE_NOTE: "Delete a note",
+        SORT_NOTES: "Sort notes",
+        SHOW_NOTES: "Show notes",
+        FIND: "Search for contacts",
+        ADD_EMAIL: "Add an email address to a contact",
+        CHANGE_EMAIL: "Change a contact's email address",
+        DELETE_EMAIL: "Delete a contact's email address",
+        SHOW_EMAIL: "Show a contact's email address",
+        HELP: "Show this help message",
+        EXIT: "Exit the application" # CLOSE?
+    }
 
     messages = {
         WELCOME: "Welcome to the assistant bot!",
         ENTER_CMD: "\nEnter a command: ",
         CANCELLED: "\nCancelled",
         CONTACTS_LIST: "Full contact list:\n\n",
+        PHONES_LIST: "Full phones list of {}:\n\n",
+        PHONES_EMPTY: "No phones found.",
+        EMAILS_LIST: "Full email list of {}:\n\n",
+        EMAILS_EMPTY: "No emails found.",
+        FIND_LIST: "All contacts satisfying the query:\n\n",
+        FIND_NONE: "No contacts satisfying the query found.",
+        HELP_MESSAGE: "List of commands:\n\n",
         ADD_TITLE: "Enter note title",
         ADD_TEXT: "Enter note text",
         ADD_TAGS: "Add note tags, comma separated (optional)",
@@ -126,7 +171,7 @@ class Commands:
         UPD_TAGS: "Update note tags, comma separated",
         QUIT_ADD_NOTE: "Quit adding note.",
         QUIT_UPD_NOTE: "Quit updating note.",
-        HELLO: "How can I help you?",
+        HELLO: "How can I help you? [type help for help]",
         ADD: "Record added successfully.",
         CHANGE: "Record updated successfully.",
         DELETE: "Record deleted successfully.",
@@ -157,26 +202,26 @@ class Commands:
     }
 
     errors = {
-        NOT_FOUND: "Record was not found",
-        EMPTY: "Address book is empty",
-        INVALID_PHONE: "Invalid phone format",
-        INVALID_NUMBER: "Invalid number argument",
-        PHONE_EXISTS: "Phone already exists",
-        PHONE_NOT_FOUND: "Phone was not found",
-        NO_TITLE: "Note title is required",
-        NO_TEXT: "Note text is required",
-        NOTE_EXISTS: "Note already exists",
-        NOTE_NOT_FOUND: "Note was not found",
-        NOTES_NOT_FOUND: "No notes with provided tags",
-        NOTES_EMPTY: "Note book is empty",
-        NO_RECORD: "Record name is required",
-        NO_CITY: "City name is required",
-        NO_STR: "Street name is required",
-        NO_BLD: "Building number is required",
-        ADR_EXISTS: "Address already exists",
-        NO_ARGS: "Not enough arguments",
-        EMAIL_EXISTS: "Email already exists",
-        EMAIL_NOT_FOUND: "Email was not found",
-        INVALID_EMAIL: "Invalid email format",
+        NOT_FOUND: "Record was not found.",
+        EMPTY: "Address book is empty.",
+        INVALID_PHONE: "Invalid phone format.",
+        INVALID_NUMBER: "Invalid number argument.",
+        PHONE_EXISTS: "Phone already exists.",
+        PHONE_NOT_FOUND: "Phone was not found.",
+        NO_TITLE: "Note title is required.",
+        NO_TEXT: "Note text is required.",
+        NOTE_EXISTS: "Note already exists.",
+        NOTE_NOT_FOUND: "Note was not found.",
+        NOTES_NOT_FOUND: "No notes with provided tags.",
+        NOTES_EMPTY: "Note book is empty.",
+        NO_RECORD: "Record name is required.",
+        NO_CITY: "City name is required.",
+        NO_STR: "Street name is required.",
+        NO_BLD: "Building number is required.",
+        ADR_EXISTS: "Address already exists.",
+        NO_ARGS: "Not enough arguments.",
+        EMAIL_EXISTS: "Email already exists.",
+        EMAIL_NOT_FOUND: "Email was not found.",
+        INVALID_EMAIL: "Invalid email format.",
         GENERIC_ERROR: "An error happened.",
     }

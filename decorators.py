@@ -1,6 +1,6 @@
 from functools import wraps
 from boterror import BotError
-from commands import Commands
+from texts import Texts
 
 
 def input_error(func):
@@ -11,9 +11,9 @@ def input_error(func):
         except BotError as e:
             print(str(e))
         except KeyboardInterrupt:
-            print(Commands.messages[Commands.CANCELLED])
+            print(Texts.messages[Texts.CANCELLED])
         except Exception as e:
-            print(Commands.errors[Commands.GENERIC_ERROR])
+            print(Texts.errors[Texts.GENERIC_ERROR])
 
     return inner
 
