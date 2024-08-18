@@ -149,7 +149,6 @@ def show_all_contacts() -> str:
     if not address_book: raise BotError(Texts.errors.get(Texts.EMPTY, ''))
     message = Texts.messages.get(Texts.CONTACTS_LIST, '').format(len(address_book))
     message += str(address_book)
-    message = message.rstrip()
     return message
 
 
@@ -213,7 +212,6 @@ def birthdays(args: List[str]) -> str:
                 message += f"{entry["name"]}: {entry["congrats_date"]}\n"
             else:
                 message += f"{entry["name"]}: {entry["congrats_date"]} (from {entry["birthday"]})\n"
-        message = message.rstrip()
     else:
         message = Texts.messages.get(Texts.BD_NOT_FOUND, '')
 
@@ -445,7 +443,6 @@ def find(args: List[str]) -> str:
         message = Texts.messages.get(Texts.FIND_LIST, '').format(len(results))
         for record in results:
             message += f"{str(record)}\n"
-    message = message.rstrip()
     return message
 
 
@@ -517,5 +514,4 @@ def show_help() -> str:
         if cmd in Texts.helps:
             help = Texts.helps[cmd]
             message += f"{cmd} - {help}\n"
-    message = message.rstrip()
     return message
