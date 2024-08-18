@@ -4,8 +4,11 @@ This file is the entry point of the full application. It also handles some speci
 
 import os
 from typing import Tuple
-from prompt_toolkit import PromptSession
-from prompt_toolkit.completion import WordCompleter
+try:
+    from prompt_toolkit import PromptSession
+    from prompt_toolkit.completion import WordCompleter
+except:
+    pass
 from .handler import get_response, save_session
 from .texts import Texts
 
