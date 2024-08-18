@@ -2,8 +2,8 @@
 This file is responsible for keeping all of the plain texts used in the app.
 """
 
-from .birthday import UNFORMAT
-
+DATE_FORMAT = "DD.MM.YYYY"
+PHONE_PREFIX = "+38"
 
 class Texts:
     ADD = "add"
@@ -55,6 +55,7 @@ class Texts:
     INVALID_CMD = "invalid-command"
     INVALID_PHONE = "invalid-phone"
     INVALID_NUMBER = "invalid-number"
+    INVALID_DATE = "invalid-date"
     NO_RECORD = "no-record"
     ADD_CITY = "enter-city"
     UPD_CITY = "update-city"
@@ -99,6 +100,20 @@ class Texts:
     EMAIL_NOT_FOUND = "email-not-found"
     INVALID_EMAIL = "invalid-email"
 
+    UNDEFINED = "undefined"
+    NONE_SAVED = "none-saved"
+    NOT_SET = "not-set"
+    NONE = "none"
+
+    CONTACT_NAME = "contact-name"
+    CONTACT_PHONES = "contact-phones"
+    CONTACT_EMAILS = "contact-emails"
+    CONTACT_ADDRESS = "contact-address"
+    CONTACT_BIRTHDAY = "contact-birthday"
+
+    SAVE = "save"
+    SESSION_SAVED = "session_saved"
+
 
     finds = (NAME, PHONE, BIRTHDAY, ADDRESS, CITY, STREET, BUILDING, EMAIL)
 
@@ -126,6 +141,7 @@ class Texts:
         CHANGE_EMAIL,
         DELETE_EMAIL,
         SHOW_EMAIL,
+        SAVE,
         HELP,
     ]
 
@@ -136,8 +152,8 @@ class Texts:
         DELETE: "Delete a contact by name",
         PHONE: "Show a contact's phone number(s)",
         ALL: "Show all contacts in the address book with their data",
-        ADD_BD: f"Add a birthday to a contact - in {UNFORMAT} form",
-        SHOW_BD: f"Show contact's birthday, if present, in {UNFORMAT} form",
+        ADD_BD: f"Add a birthday to a contact - in {DATE_FORMAT} form",
+        SHOW_BD: f"Show contact's birthday, if present, in {DATE_FORMAT} form",
         BD_SOON: "Show birthdays in the upcoming week, or in N upcoming days",
         ADD_ADR: "Add address data to a contact",
         CHANGE_ADR: "Change address data of a contact",
@@ -156,15 +172,15 @@ class Texts:
     }
 
     messages = {
-        WELCOME: "Welcome to the assistant bot!",
+        WELCOME: "Welcome to the assistant bot! [type help for help]",
         ENTER_CMD: "\nEnter a command: ",
         CANCELLED: "\nCancelled",
-        CONTACTS_LIST: "Full contact list:\n\n",
-        PHONES_LIST: "Full phones list of {}:\n\n",
+        CONTACTS_LIST: "Full contact list ({}):\n\n",
+        PHONES_LIST: "Full phone list of {}:\n\n",
         PHONES_EMPTY: "No phones found.",
         EMAILS_LIST: "Full email list of {}:\n\n",
         EMAILS_EMPTY: "No emails found.",
-        FIND_LIST: "All contacts satisfying the query:\n\n",
+        FIND_LIST: "All contacts satisfying the query ({}):\n\n",
         FIND_NONE: "No contacts satisfying the query found.",
         HELP_MESSAGE: "List of commands:\n\n",
         ADD_TITLE: "Enter note title",
@@ -184,6 +200,7 @@ class Texts:
         DELETE_NOTE: "Note deleted successfully.",
         EXIT: "Good bye!",
         EXIT_KB: "Good bye! [session not saved]",
+        SESSION_SAVED: "[session saved]",
         INVALID_CMD: "Invalid command.",
         ADD_CITY: "Enter city",
         ADD_STR: "Enter street",
@@ -201,8 +218,18 @@ class Texts:
         CHANGE_EMAIL: "Email updated successfully.",
         DELETE_EMAIL: "Email deleted successfully.",
         INVALID_EMAIL: "Invalid email address format.",
-        BD_FOUND: "The following birthdays found:\n",
+        BD_FOUND: "The following birthdays found:\n\n",
         BD_NOT_FOUND: "No upcoming birthdays found.",
+        CONTACT_NAME: "┌ Name: ",
+        CONTACT_PHONES: "\n├ Phones: ",
+        CONTACT_EMAILS: "\n├ Emails: ",
+        CONTACT_ADDRESS: "\n├ Address: ",
+        CONTACT_BIRTHDAY: "\n└ Birthday: ",
+        UNDEFINED: "undefined",
+        NONE_SAVED: "none saved",
+        NOT_SET: "not set",
+        NONE: "none",
+
     }
 
     errors = {
@@ -210,6 +237,7 @@ class Texts:
         EMPTY: "Address book is empty.",
         INVALID_PHONE: "Invalid phone format.",
         INVALID_NUMBER: "Invalid number argument.",
+        INVALID_DATE: f"Invalid date format. Use {DATE_FORMAT}",
         PHONE_EXISTS: "Phone already exists.",
         PHONE_NOT_FOUND: "Phone was not found.",
         NO_TITLE: "Note title is required.",

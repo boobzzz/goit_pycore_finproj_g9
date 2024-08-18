@@ -4,6 +4,7 @@ This file is responsible for the note classes - those used to keep an individual
 
 from typing import List, TypedDict
 from .field import Field
+from .texts import Texts
 
 
 class NoteParams(TypedDict):
@@ -40,5 +41,5 @@ class Note(Field):
         return (
             f"{self.__title}\n"
             f"{self.value}\n"
-            f"tags: {", ".join(self.__tags) if len(self.__tags) > 0 else "none"}"
+            f"tags: {", ".join(self.__tags) if len(self.__tags) > 0 else Texts.messages.get(Texts.NONE, '')}"
         )

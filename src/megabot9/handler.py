@@ -62,30 +62,34 @@ def get_response(cmd: str, args: List):
             return show_email(args)
         case Texts.HELP:
             return show_help()
+        case Texts.SAVE:
+            return save_session()
 
 
+@show_message
 def save_session():
     save_data({
         "address_book": address_book,
         "note_book": note_book
     })
+    return Texts.messages.get(Texts.SESSION_SAVED, '')
 
 
 @show_message
 def say_hello() -> str:
-    return Texts.messages.get(Texts.HELLO)
+    return Texts.messages.get(Texts.HELLO, '')
 
 
 @input_error
 @show_message
 def add_contact(args: List[str]) -> str:
-    if len(args) < 1: return Texts.messages.get(Texts.INVALID_CMD)
+    if len(args) < 1: return Texts.messages.get(Texts.INVALID_CMD, '')
     name, *rest = args
     record = address_book.find_record(name)
-    message = Texts.messages.get(Texts.CHANGE)
+    message = Texts.messages.get(Texts.CHANGE, '')
     if not record:
         address_book.add_record(name)
-        message = Texts.messages.get(Texts.ADD)
+        message = Texts.messages.get(Texts.ADD, '')
     if rest:
         record = address_book.find_record(name)
         error = record.add_phone(rest[0])
@@ -97,14 +101,14 @@ def add_contact(args: List[str]) -> str:
 @input_error
 @show_message
 def change_contact(args: List[str]) -> str:
-    if len(args) < 3: return Texts.messages.get(Texts.INVALID_CMD)
+    if len(args) < 3: return Texts.messages.get(Texts.INVALID_CMD, '')
     name, phone, new_phone = args[:3]
     record = address_book.find_record(name)
-    message = Texts.errors.get(Texts.NOT_FOUND)
+    message = Texts.errors.get(Texts.NOT_FOUND, '')
     if record:
         error = record.edit_phone(phone, new_phone)
         if not error:
-            message = Texts.messages.get(Texts.CHANGE)
+            message = Texts.messages.get(Texts.CHANGE, '')
         else:
             message = error
     return message
@@ -113,27 +117,27 @@ def change_contact(args: List[str]) -> str:
 @input_error
 @show_message
 def delete_contact(args: List[str]) -> str:
-    if len(args) < 1: return Texts.messages.get(Texts.INVALID_CMD)
+    if len(args) < 1: return Texts.messages.get(Texts.INVALID_CMD, '')
     name = args[0]
     record = address_book.find_record(name)
-    message = Texts.errors.get(Texts.NOT_FOUND)
+    message = Texts.errors.get(Texts.NOT_FOUND, '')
     if record:
         address_book.delete_record(name)
-        message = Texts.messages.get(Texts.DELETE)
+        message = Texts.messages.get(Texts.DELETE, '')
     return message
 
 
 @input_error
 @show_message
 def show_all_phones(args: List[str]) -> str:
-    if len(args) < 1: raise BotError(Texts.messages.get(Texts.INVALID_CMD))
+    if len(args) < 1: raise BotError(Texts.messages.get(Texts.INVALID_CMD, ''))
     name = args[0]
     record = address_book.find_record(name)
-    message = Texts.errors.get(Texts.NOT_FOUND)
+    message = Texts.errors.get(Texts.NOT_FOUND, '')
     if record:
-        message = Texts.messages.get(Texts.PHONES_EMPTY)
+        message = Texts.messages.get(Texts.PHONES_EMPTY, '')
         if record.phones:
-            message = Texts.messages.get(Texts.PHONES_LIST).format(name)
+            message = Texts.messages.get(Texts.PHONES_LIST, '').format(name)
             message += ', '.join(p.value for p in record.phones)
     return message
 
@@ -141,9 +145,9 @@ def show_all_phones(args: List[str]) -> str:
 @input_error
 @show_message
 def show_all_contacts() -> str:
-    message = Texts.errors.get(Texts.EMPTY)
-    if not address_book: raise BotError(Texts.errors.get(Texts.EMPTY))
-    message = Texts.messages.get(Texts.CONTACTS_LIST)
+    message = Texts.errors.get(Texts.EMPTY, '')
+    if not address_book: raise BotError(Texts.errors.get(Texts.EMPTY, ''))
+    message = Texts.messages.get(Texts.CONTACTS_LIST, '').format(len(address_book))
     message += str(address_book)
     message = message.rstrip()
     return message
@@ -152,23 +156,23 @@ def show_all_contacts() -> str:
 @input_error
 @show_message
 def add_birthday(args: List[str]) -> str:
-    if len(args) < 2: return Texts.messages.get(Texts.INVALID_CMD)
+    if len(args) < 2: return Texts.messages.get(Texts.INVALID_CMD, '')
     name, birthday = args[:2]
     record = address_book.find_record(name)
-    message = Texts.errors.get(Texts.NOT_FOUND)
+    message = Texts.errors.get(Texts.NOT_FOUND, '')
     if record:
         record.add_birthday(birthday)
-        message = Texts.messages.get(Texts.CHANGE)
+        message = Texts.messages.get(Texts.CHANGE, '')
     return message
 
 
 @input_error
 @show_message
 def show_birthday(args: List[str]) -> str:
-    if len(args) < 1: return Texts.messages.get(Texts.INVALID_CMD)
+    if len(args) < 1: return Texts.messages.get(Texts.INVALID_CMD, '')
     name = args[0]
     record = address_book.find_record(name)
-    message = Texts.errors.get(Texts.NOT_FOUND)
+    message = Texts.errors.get(Texts.NOT_FOUND, '')
     if record:
         if record.birthday is None: return message
         message = record.birthday.bd_date.date()
@@ -183,10 +187,10 @@ def birthdays(args: List[str]) -> str:
         try:
             delta = int(args[0])
         except ValueError:
-            raise BotError(Texts.errors.get(Texts.INVALID_NUMBER))
+            raise BotError(Texts.errors.get(Texts.INVALID_NUMBER, ''))
         else:
-            if delta < 0: raise BotError(Texts.errors.get(Texts.INVALID_NUMBER))
-    if not address_book: raise BotError(Texts.errors.get(Texts.EMPTY))
+            if delta < 0: raise BotError(Texts.errors.get(Texts.INVALID_NUMBER, ''))
+    if not address_book: raise BotError(Texts.errors.get(Texts.EMPTY, ''))
     bd_entries = []
     for record in address_book.values():
         record_bd_now = utils.is_bd_in_range(record, delta)
@@ -201,7 +205,7 @@ def birthdays(args: List[str]) -> str:
     bd_entries.sort(key=lambda e: e["congrats_date"])
 
     if bd_entries:
-        message = Texts.messages.get(Texts.BD_FOUND)
+        message = Texts.messages.get(Texts.BD_FOUND, '')
         for entry in bd_entries:
             entry["congrats_date"] = entry["congrats_date"].strftime(FORMAT)
             entry["birthday"] = entry["birthday"].strftime(FORMAT)
@@ -211,7 +215,7 @@ def birthdays(args: List[str]) -> str:
                 message += f"{entry["name"]}: {entry["congrats_date"]} (from {entry["birthday"]})\n"
         message = message.rstrip()
     else:
-        message = Texts.messages.get(Texts.BD_NOT_FOUND)
+        message = Texts.messages.get(Texts.BD_NOT_FOUND, '')
 
     return message
 
@@ -219,17 +223,17 @@ def birthdays(args: List[str]) -> str:
 @input_error
 @show_message
 def add_address(args: List[str]) -> str:
-    message = Texts.errors[Texts.NO_RECORD]
+    message = Texts.errors.get(Texts.NO_RECORD, '')
     if len(args) == 0:
         return message
 
     record = address_book.find_record(args[0])
     if not record:
-        message = Texts.errors[Texts.NOT_FOUND]
+        message = Texts.errors.get(Texts.NOT_FOUND, '')
         return message
 
     if record.address:
-        message = Texts.errors[Texts.ADR_EXISTS]
+        message = Texts.errors.get(Texts.ADR_EXISTS, '')
         return message
 
     address_params = {
@@ -238,7 +242,7 @@ def add_address(args: List[str]) -> str:
         Params.BUILDING: None
     }
 
-    message = Texts.messages[Texts.ADD_ADR]
+    message = Texts.messages.get(Texts.ADD_ADR, '')
     while True:
         if address_params["city"] and address_params["street"] and address_params["building"]:
             record.update_address(address_params)
@@ -247,7 +251,7 @@ def add_address(args: List[str]) -> str:
         messages = get_messages(address_params)
         user_input = input(messages["message"])
         if user_input == Texts.QUIT:
-            message = Texts.messages[Texts.QUIT_ADD_ADR]
+            message = Texts.messages.get(Texts.QUIT_ADD_ADR, '')
             break
 
         if user_input:
@@ -260,16 +264,16 @@ def add_address(args: List[str]) -> str:
 def get_messages(address_params: AddressParams) -> Dict:
     messages: Dict = {}
     if not address_params["city"]:
-        messages["message"] = f"{Texts.messages[Texts.ADD_CITY]} ({Texts.messages[Texts.QUIT]}): "
-        messages["error"] = Texts.errors[Texts.NO_CITY]
+        messages["message"] = f"{Texts.messages.get(Texts.ADD_CITY, '')} ({Texts.messages.get(Texts.QUIT, '')}): "
+        messages["error"] = Texts.errors.get(Texts.NO_CITY, '')
         messages["param"] = Params.CITY
     if address_params["city"] and not address_params["street"]:
-        messages["message"] = f"{Texts.messages[Texts.ADD_STR]} ({Texts.messages[Texts.QUIT]}): "
-        messages["error"] = Texts.errors[Texts.NO_STR]
+        messages["message"] = f"{Texts.messages.get(Texts.ADD_STR, '')} ({Texts.messages.get(Texts.QUIT, '')}): "
+        messages["error"] = Texts.errors.get(Texts.NO_STR, '')
         messages["param"] = Params.STREET
     if address_params["city"] and address_params["street"] and not address_params["building"]:
-        messages["message"] = f"{Texts.messages[Texts.ADD_BLD]} ({Texts.messages[Texts.QUIT]}): "
-        messages["error"] = Texts.errors[Texts.NO_BLD]
+        messages["message"] = f"{Texts.messages.get(Texts.ADD_BLD, '')} ({Texts.messages.get(Texts.QUIT, '')}): "
+        messages["error"] = Texts.errors.get(Texts.NO_BLD, '')
         messages["param"] = Params.BUILDING
     return messages
 
@@ -277,13 +281,13 @@ def get_messages(address_params: AddressParams) -> Dict:
 @input_error
 @show_message
 def change_address(args: List[str]) -> str:
-    message = Texts.errors[Texts.NO_RECORD]
+    message = Texts.errors.get(Texts.NO_RECORD, '')
     if len(args) == 0:
         return message
 
     record = address_book.find_record(args[0])
     if not record:
-        message = Texts.errors[Texts.NOT_FOUND]
+        message = Texts.errors.get(Texts.NOT_FOUND, '')
         return message
 
     address_params: AddressParams = {
@@ -292,17 +296,17 @@ def change_address(args: List[str]) -> str:
         Params.BUILDING: record.address.building
     }
     messages = {
-        Params.CITY: Texts.messages[Texts.UPD_CITY],
-        Params.STREET: Texts.messages[Texts.UPD_STR],
-        Params.BUILDING: Texts.messages[Texts.UPD_BLD],
+        Params.CITY: Texts.messages.get(Texts.UPD_CITY, ''),
+        Params.STREET: Texts.messages.get(Texts.UPD_STR, ''),
+        Params.BUILDING: Texts.messages.get(Texts.UPD_BLD, ''),
     }
 
-    message = Texts.messages[Texts.UPD_ADR]
+    message = Texts.messages.get(Texts.UPD_ADR, '')
     for param in address_params:
-        user_input = input(f"{messages[param]} [{address_params[param]}] ({Texts.messages[Texts.QUIT]}, "
-                           f"{Texts.messages[Texts.PROCEED]}): ")
+        user_input = input(f"{messages[param]} [{address_params[param]}] ({Texts.messages.get(Texts.QUIT, '')}, "
+                           f"{Texts.messages.get(Texts.PROCEED, '')}): ")
         if user_input == Texts.QUIT:
-            message = Texts.messages[Texts.QUIT_UPD_ADR]
+            message = Texts.messages.get(Texts.QUIT_UPD_ADR, '')
             break
 
         if user_input:
@@ -317,21 +321,21 @@ def add_note() -> str:
     note_params = {"title": "", "text": "", "tags": []}
     messages = {
         "title": {
-            "msg": f"{Texts.messages[Texts.ADD_TITLE]} ({Texts.messages[Texts.QUIT]}): ",
-            "err": Texts.errors[Texts.NO_TITLE],
+            "msg": f"{Texts.messages.get(Texts.ADD_TITLE, '')} ({Texts.messages.get(Texts.QUIT, '')}): ",
+            "err": Texts.errors.get(Texts.NO_TITLE, ''),
             "type": "title"
         },
         "text": {
-            "msg": f"{Texts.messages[Texts.ADD_TEXT]} ({Texts.messages[Texts.QUIT]}): ",
-            "err": Texts.errors[Texts.NO_TEXT],
+            "msg": f"{Texts.messages.get(Texts.ADD_TEXT, '')} ({Texts.messages.get(Texts.QUIT, '')}): ",
+            "err": Texts.errors.get(Texts.NO_TEXT, ''),
             "type": "text"
         }
     }
 
-    result = Texts.messages[Texts.ADD_NOTE]
+    result = Texts.messages.get(Texts.ADD_NOTE, '')
     while True:
         if note_params["title"] and note_params["text"] and not note_book.find_note(note_params["title"]):
-            tags_input = input(f"{Texts.messages[Texts.ADD_TAGS]} ({Texts.messages[Texts.QUIT]}): ")
+            tags_input = input(f"{Texts.messages.get(Texts.ADD_TAGS, '')} ({Texts.messages.get(Texts.QUIT, '' )}): ")
             note_params["tags"] = tags_input.split(",") if tags_input else []
             note_book.add_note(note_params)
             break
@@ -339,7 +343,7 @@ def add_note() -> str:
         message = messages["title"] if not note_params["title"] else messages["text"]
         user_input = input(message["msg"])
         if user_input == "q":
-            result = Texts.messages[Texts.QUIT_ADD_NOTE]
+            result = Texts.messages.get(Texts.QUIT_ADD_NOTE, '')
             break
 
         if user_input:
@@ -353,27 +357,27 @@ def add_note() -> str:
 @show_message
 def change_note(args: List[str]) -> str:
     if len(args) == 0:
-        raise BotError(Texts.errors[Texts.NO_ARGS])
+        raise BotError(Texts.errors.get(Texts.NO_ARGS, ''))
 
     note = note_book.find_note(args)
     if not note:
-        raise BotError(Texts.errors[Texts.NOTE_NOT_FOUND])
+        raise BotError(Texts.errors.get(Texts.NOTE_NOT_FOUND, ''))
 
     note_params = {"title": note.title, "text": note, "tags": note.tags}
     messages = {
-        "title": f"{Texts.messages[Texts.UPD_TITLE]} ({Texts.messages[Texts.QUIT]}, "
-                 f"{Texts.messages[Texts.PROCEED]}): ",
-        "text": f"{Texts.messages[Texts.UPD_TEXT]} ({Texts.messages[Texts.QUIT]}, "
-                 f"{Texts.messages[Texts.PROCEED]}): ",
-        "tags": f"{Texts.messages[Texts.UPD_TAGS]} ({Texts.messages[Texts.QUIT]}, "
-                 f"{Texts.messages[Texts.PROCEED]}): ",
+        "title": f"{Texts.messages.get(Texts.UPD_TITLE, '')} ({Texts.messages.get(Texts.QUIT, '')}, "
+                 f"{Texts.messages.get(Texts.PROCEED, '')}): ",
+        "text": f"{Texts.messages.get(Texts.UPD_TEXT, '')} ({Texts.messages.get(Texts.QUIT, '')}, "
+                 f"{Texts.messages.get(Texts.PROCEED, '')}): ",
+        "tags": f"{Texts.messages.get(Texts.UPD_TAGS, '')} ({Texts.messages.get(Texts.QUIT, '')}, "
+                 f"{Texts.messages.get(Texts.PROCEED, '')}): ",
     }
-    result = Texts.messages[Texts.CHANGE_NOTE]
+    result = Texts.messages.get(Texts.CHANGE_NOTE, '')
 
     for param in note_params:
         user_input = input(messages[param])
         if user_input == "q":
-            result = Texts.messages[Texts.QUIT_UPD_NOTE]
+            result = Texts.messages.get(Texts.QUIT_UPD_NOTE, '')
             break
 
         if user_input:
@@ -386,18 +390,18 @@ def change_note(args: List[str]) -> str:
 @show_message
 def delete_note(args: List[str]) -> str:
     if len(args) == 0:
-        raise BotError(Texts.errors[Texts.NO_ARGS])
+        raise BotError(Texts.errors.get(Texts.NO_ARGS, ''))
 
-    message = Texts.errors[Texts.NOTE_NOT_FOUND]
+    message = Texts.errors.get(Texts.NOTE_NOT_FOUND, '')
     if len(args) > 0 and note_book.find_note(args):
         note_book.remove_note(args)
-        message = Texts.messages[Texts.DELETE_NOTE]
+        message = Texts.messages.get(Texts.DELETE_NOTE, '')
     return message
 
 
 @show_message
 def sort_notes(args: List[str]) -> str:
-    message = Texts.errors[Texts.NO_ARGS]
+    message = Texts.errors.get(Texts.NO_ARGS, '')
     if len(args) > 0:
         trimmed = [tag.strip().lower() for tag in args]
         if len(trimmed) > 0:
@@ -405,13 +409,13 @@ def sort_notes(args: List[str]) -> str:
             if notes:
                 message = "\n" + notes
             else:
-                message = Texts.errors[Texts.NOTES_NOT_FOUND]
+                message = Texts.errors.get(Texts.NOTES_NOT_FOUND, '')
     return message
 
 
 @show_message
 def show_notes() -> str:
-    message = Texts.errors[Texts.NOTES_EMPTY]
+    message = Texts.errors.get(Texts.NOTES_EMPTY, '')
     if bool(note_book):
         message = str(note_book)
     return message
@@ -420,9 +424,9 @@ def show_notes() -> str:
 @input_error
 @show_message
 def find(args: List[str]) -> str:
-    if len(args) < 2: raise BotError(Texts.messages.get(Texts.INVALID_CMD))
+    if len(args) < 2: raise BotError(Texts.messages.get(Texts.INVALID_CMD, ''))
     field = args[0].casefold()
-    if field not in Texts.finds: raise BotError(Texts.messages.get(Texts.INVALID_CMD))
+    if field not in Texts.finds: raise BotError(Texts.messages.get(Texts.INVALID_CMD, ''))
     perfect_match = False
     if len(args) == 2:
         query = args[1]
@@ -430,17 +434,18 @@ def find(args: List[str]) -> str:
     elif len(args) > 2:
         like_keyword = args[1].casefold()
         query = ''.join(args[2:])
-        if like_keyword != Texts.LIKE: raise BotError(Texts.messages.get(Texts.INVALID_CMD))
+        if like_keyword != Texts.LIKE: raise BotError(Texts.messages.get(Texts.INVALID_CMD, ''))
     
     results = []
     for record in address_book.values():
         if record.find_match(field, query, perfect_match):
             results.append(record)
-    message = Texts.messages.get(Texts.FIND_NONE)
+    message = Texts.messages.get(Texts.FIND_NONE, '')
     if results:
-        message = Texts.messages.get(Texts.FIND_LIST)
+        message = Texts.messages.get(Texts.FIND_LIST, '').format(len(results))
         for record in results:
             message += f"{str(record)}\n"
+    message = message.rstrip()
     return message
 
 
@@ -448,58 +453,58 @@ def find(args: List[str]) -> str:
 @show_message
 def add_email(args: List[str]) -> str:
     if len(args) < 2:
-        return Texts.messages.get(Texts.INVALID_CMD)
+        return Texts.messages.get(Texts.INVALID_CMD, '')
     name, email = args[:2]
     record = address_book.find_record(name)
     if not record:
-        raise BotError(Texts.errors.get(Texts.NOT_FOUND))
+        raise BotError(Texts.errors.get(Texts.NOT_FOUND, ''))
     error = record.add_email(email)
     if error:
         return error
-    return Texts.messages.get(Texts.ADD_EMAIL)
+    return Texts.messages.get(Texts.ADD_EMAIL, '')
 
 
 @input_error
 @show_message
 def change_email(args: List[str]) -> str:
     if len(args) < 3:
-        return Texts.messages.get(Texts.INVALID_CMD)
+        return Texts.messages.get(Texts.INVALID_CMD, '')
     name, old_email, new_email = args[:3]
     record = address_book.find_record(name)
     if not record:
-        raise BotError(Texts.errors.get(Texts.NOT_FOUND))
+        raise BotError(Texts.errors.get(Texts.NOT_FOUND, ''))
     error = record.update_email(old_email, new_email)
     if error:
         return error
-    return Texts.messages.get(Texts.CHANGE_EMAIL)
+    return Texts.messages.get(Texts.CHANGE_EMAIL, '')
 
 
 @input_error
 @show_message
 def delete_email(args: List[str]) -> str:
     if len(args) < 2:
-        return Texts.messages.get(Texts.INVALID_CMD)
+        return Texts.messages.get(Texts.INVALID_CMD, '')
     name, email = args[:2]
     record = address_book.find_record(name)
     if not record:
-        raise BotError(Texts.errors.get(Texts.NOT_FOUND))
+        raise BotError(Texts.errors.get(Texts.NOT_FOUND, ''))
     error = record.remove_email(email)
     if error:
         return error
-    return Texts.messages.get(Texts.DELETE_EMAIL)
+    return Texts.messages.get(Texts.DELETE_EMAIL, '')
 
 
 @input_error
 @show_message
 def show_email(args: List[str]) -> str:
-    if len(args) < 1: raise BotError(Texts.messages.get(Texts.INVALID_CMD))
+    if len(args) < 1: raise BotError(Texts.messages.get(Texts.INVALID_CMD, ''))
     name = args[0]
     record = address_book.find_record(name)
-    message = Texts.errors.get(Texts.NOT_FOUND)
+    message = Texts.errors.get(Texts.NOT_FOUND, '')
     if record:
-        message = Texts.messages.get(Texts.EMAILS_EMPTY)
+        message = Texts.messages.get(Texts.EMAILS_EMPTY, '')
         if record.emails:
-            message = Texts.messages.get(Texts.EMAILS_LIST).format(name)
+            message = Texts.messages.get(Texts.EMAILS_LIST, '').format(name)
             message += ', '.join(e.value for e in record.emails)
     return message
 
@@ -507,7 +512,7 @@ def show_email(args: List[str]) -> str:
 @input_error
 @show_message
 def show_help() -> str:
-    message = Texts.messages.get(Texts.HELP_MESSAGE)
+    message = Texts.messages.get(Texts.HELP_MESSAGE, '')
     for cmd in Texts.commands:
         if cmd in Texts.helps:
             help = Texts.helps[cmd]
