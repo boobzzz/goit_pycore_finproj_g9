@@ -5,7 +5,6 @@ This file is responsible for the Phone class - the one used to save records' pho
 from typing import TypedDict
 import re
 from .field import Field
-from .boterror import BotError
 from .texts import PHONE_PREFIX
 
 
