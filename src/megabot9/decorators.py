@@ -26,7 +26,11 @@ def show_message(func):
     @wraps(func)
     def inner(*args):
         message = func(*args)
-        message = message.rstrip()
-        print(message)
+        if type(message) == str:
+            message = message.rstrip()
+            print(message)
+        else:
+            print(Texts.errors[Texts.GENERIC_ERROR])
+
 
     return inner

@@ -61,7 +61,7 @@ def get_response(cmd: str, args: List):
         case Texts.SHOW_EMAIL:
             return show_email(args)
         case Texts.HELP:
-            return show_help()
+            return show_help(args)
         case Texts.SAVE:
             return save_session()
 
@@ -508,7 +508,15 @@ def show_email(args: List[str]) -> str:
 
 @input_error
 @show_message
-def show_help() -> str:
+def show_help(args: List[str]) -> str:
+    command = None
+    if len(args) >= 1:
+        command = args[0].casefold()
+        if command in Texts.commands and command in Texts.helps:
+            help = Texts.helps[command]
+            message = f"{command} - {help}\n"
+            return message
+
     message = Texts.messages.get(Texts.HELP_MESSAGE, '')
     for cmd in Texts.commands:
         if cmd in Texts.helps:

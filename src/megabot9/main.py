@@ -25,7 +25,8 @@ def main():
     advanced_mode = True
     try:
         find_commands = [Texts.FIND + ' ' + find for find in Texts.finds] + [Texts.FIND + ' ' + find + ' ' + Texts.LIKE for find in Texts.finds]
-        bot_completer = WordCompleter(Texts.commands + find_commands, ignore_case=True, sentence=True)
+        help_commands = [Texts.HELP + ' ' + command for command in Texts.commands if command in Texts.helps]
+        bot_completer = WordCompleter(Texts.commands + find_commands + help_commands, ignore_case=True, sentence=True)
         session = PromptSession(completer=bot_completer)
     except:
         advanced_mode = False
