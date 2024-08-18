@@ -287,6 +287,10 @@ def change_address(args: List[str]) -> str:
     if not record:
         message = Texts.errors.get(Texts.NOT_FOUND, '')
         return message
+    
+    if not record.address:
+        message = Texts.errors.get(Texts.NOT_FOUND, '')
+        return message
 
     address_params: AddressParams = {
         Params.CITY: record.address.city,
