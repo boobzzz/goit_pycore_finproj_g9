@@ -3,7 +3,7 @@ This file is responsible for keeping all of the plain texts used in the app.
 """
 
 DATE_FORMAT = "DD.MM.YYYY"
-PHONE_PREFIX = "+38"
+PHONE_PREFIX = "+380"
 
 class Texts:
     ADD = "add"
@@ -119,30 +119,35 @@ class Texts:
 
     commands = [
         ADD,
-        CHANGE,
-        DELETE,
         PHONE,
-        ALL,
-        ADD_BD,
-        SHOW_BD,
-        BD_SOON,
+        CHANGE,
+        ADD_EMAIL,
+        SHOW_EMAIL,
+        CHANGE_EMAIL,
         ADD_ADR,
         CHANGE_ADR,
-        ADD_NOTE,
-        CHANGE_NOTE,
-        DELETE_NOTE,
-        SORT_NOTES,
-        SHOW_NOTES,
-        HELLO,
+        ADD_BD,
+        SHOW_BD,
+
+        ALL,
         FIND,
-        CLOSE,
-        EXIT,
-        ADD_EMAIL,
-        CHANGE_EMAIL,
+        
+        DELETE,
         DELETE_EMAIL,
-        SHOW_EMAIL,
+
+        BD_SOON,
+
+        ADD_NOTE,
+        SHOW_NOTES,
+        CHANGE_NOTE,
+        SORT_NOTES,
+        DELETE_NOTE,
+        
+        HELLO,
         SAVE,
         HELP,
+        CLOSE,
+        EXIT,
     ]
 
     helps = {
@@ -167,6 +172,7 @@ class Texts:
         CHANGE_EMAIL: "Change a contact's email address",
         DELETE_EMAIL: "Delete a contact's email address",
         SHOW_EMAIL: "Show a contact's email address",
+        SAVE: "Save the current state of the session", 
         HELP: "Show this help message",
         EXIT: "Exit the application" # CLOSE?
     }
