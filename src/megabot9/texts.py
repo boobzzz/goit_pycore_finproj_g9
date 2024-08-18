@@ -115,7 +115,7 @@ class Texts:
     SESSION_SAVED = "session_saved"
 
 
-    finds = (NAME, PHONE, BIRTHDAY, ADDRESS, CITY, STREET, BUILDING, EMAIL)
+    finds = (NAME, PHONE, EMAIL, ADDRESS, CITY, STREET, BUILDING, BIRTHDAY)
 
     commands = [
         ADD,
