@@ -33,10 +33,10 @@ You can also install in developer mode by using: `pip install -e .`. This mode w
 *NB: The same list can be outputed by typing `help` in the bot's command-line interface.*
 ```
 add - Add a contact or add a phone to a contact
-phone - Show a contact's phone number(s)       
+phone - Show a contact's phone number(s)
 change - Change a contact's phone
-add-email - Add an email address to a contact  
-show-email - Show a contact's email address    
+add-email - Add an email address to a contact
+show-email - Show a contact's email address
 change-email - Change a contact's email address
 add-address - Add address data to a contact
 change-address - Change address data of a contact
@@ -48,9 +48,9 @@ delete - Delete a contact by name
 delete-email - Delete a contact's email address
 birthdays - Show birthdays in the upcoming week, or in N upcoming days
 add-note - Add a note
-show-notes - Show notes
+show-notes - Show all notes
 change-note - Change a note
-sort-notes - Sort notes
+sort-notes - Filter notes by tags
 delete-note - Delete a note
 hello - Show greeting
 save - Save the current state of the session
