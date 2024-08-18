@@ -21,11 +21,11 @@ class Record:
 
     def __str__(self):
         contact_card = ""
-        contact_card += "Name: " + (self.name.value if self.name else "undefined")
-        contact_card += "\nPhones: " + (', '.join(p.value for p in self.phones) if self.phones else "none saved")
-        contact_card += "\nEmails: " + (', '.join(e.value for e in self.emails) if self.emails else "none saved")
-        contact_card += "\nAddress: " + (self.address.value if self.address else "not set")
-        contact_card += "\nBirthday: " + (self.birthday.value if self.birthday else "not set")
+        contact_card += Texts.messages.get(Texts.CONTACT_NAME, '') + (self.name.value if self.name else Texts.UNDEFINED)
+        contact_card += Texts.messages.get(Texts.CONTACT_PHONES, '') + (', '.join(p.value for p in self.phones) if self.phones else Texts.NONE_SAVED)
+        contact_card += Texts.messages.get(Texts.CONTACT_EMAILS, '') + (', '.join(e.value for e in self.emails) if self.emails else Texts.NONE_SAVED)
+        contact_card += Texts.messages.get(Texts.CONTACT_ADDRESS, '') + (self.address.value if self.address else Texts.NOT_SET)
+        contact_card += Texts.messages.get(Texts.CONTACT_BIRTHDAY, '') + (self.birthday.value if self.birthday else Texts.NOT_SET)
         contact_card += '\n'
         return contact_card
 

@@ -99,6 +99,16 @@ class Texts:
     EMAIL_NOT_FOUND = "email-not-found"
     INVALID_EMAIL = "invalid-email"
 
+    UNDEFINED = "undefined"
+    NONE_SAVED = "none-saved"
+    NOT_SET = "not-set"
+
+    CONTACT_NAME = "contact-name"
+    CONTACT_PHONES = "contact-phones"
+    CONTACT_EMAILS = "contact-emails"
+    CONTACT_ADDRESS = "contact-address"
+    CONTACT_BIRTHDAY = "contact-birthday"
+
 
     finds = (NAME, PHONE, BIRTHDAY, ADDRESS, CITY, STREET, BUILDING, EMAIL)
 
@@ -201,8 +211,13 @@ class Texts:
         CHANGE_EMAIL: "Email updated successfully.",
         DELETE_EMAIL: "Email deleted successfully.",
         INVALID_EMAIL: "Invalid email address format.",
-        BD_FOUND: "The following birthdays found:\n",
+        BD_FOUND: "The following birthdays found:\n\n",
         BD_NOT_FOUND: "No upcoming birthdays found.",
+        CONTACT_NAME: "Name: ",
+        CONTACT_PHONES: "\nPhones: ",
+        CONTACT_EMAILS: "\nEmails: ",
+        CONTACT_ADDRESS: "\nAddress: ",
+        CONTACT_BIRTHDAY: "\nBirthday: ",
     }
 
     errors = {
