@@ -21,11 +21,11 @@ class Record:
 
     def __str__(self):
         contact_card = ""
-        contact_card += Texts.messages.get(Texts.CONTACT_NAME, '') + (self.name.value if self.name else Texts.UNDEFINED)
-        contact_card += Texts.messages.get(Texts.CONTACT_PHONES, '') + (', '.join(p.value for p in self.phones) if self.phones else Texts.NONE_SAVED)
-        contact_card += Texts.messages.get(Texts.CONTACT_EMAILS, '') + (', '.join(e.value for e in self.emails) if self.emails else Texts.NONE_SAVED)
-        contact_card += Texts.messages.get(Texts.CONTACT_ADDRESS, '') + (self.address.value if self.address else Texts.NOT_SET)
-        contact_card += Texts.messages.get(Texts.CONTACT_BIRTHDAY, '') + (self.birthday.value if self.birthday else Texts.NOT_SET)
+        contact_card += Texts.messages.get(Texts.CONTACT_NAME, '') + (self.name.value if self.name else Texts.messages.get(Texts.UNDEFINED, ''))
+        contact_card += Texts.messages.get(Texts.CONTACT_PHONES, '') + (', '.join(p.value for p in self.phones) if self.phones else Texts.messages.get(Texts.NONE_SAVED, ''))
+        contact_card += Texts.messages.get(Texts.CONTACT_EMAILS, '') + (', '.join(e.value for e in self.emails) if self.emails else Texts.messages.get(Texts.NONE_SAVED, ''))
+        contact_card += Texts.messages.get(Texts.CONTACT_ADDRESS, '') + (self.address.value if self.address else Texts.messages.get(Texts.NOT_SET, ''))
+        contact_card += Texts.messages.get(Texts.CONTACT_BIRTHDAY, '') + (self.birthday.value if self.birthday else Texts.messages.get(Texts.NOT_SET, ''))
         contact_card += '\n'
         return contact_card
 

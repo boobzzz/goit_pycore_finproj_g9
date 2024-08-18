@@ -7,7 +7,6 @@ from typing import Union, Tuple
 from .record import Record
 
 
-FORMAT = "%d.%m.%Y"
 BD_INTERVAL = 7
 
 
