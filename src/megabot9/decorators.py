@@ -26,6 +26,7 @@ def show_message(func):
     @wraps(func)
     def inner(*args):
         message = func(*args)
+        message = message.rstrip()
         print(message)
 
     return inner
