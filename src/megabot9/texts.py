@@ -10,8 +10,10 @@ class Texts:
     CHANGE = "change"
     DELETE = "delete"
     PHONE = "phone"
+    SHOW_PHONE = "show-phone"
     ALL = "all"
     ADD_BD = "add-birthday"
+    SHOW_ADR = "show-address"
     SHOW_BD = "show-birthday"
     ADD_NOTE = "add-note"
     CHANGE_NOTE = "change-note"
@@ -50,6 +52,7 @@ class Texts:
     EMPTY = "empty"
     NOT_FOUND = "not-found"
     PHONE_NOT_FOUND = "phone-not-found"
+    CONTACT_EXISTS = "contact-exists"
     PHONE_EXISTS = "phone-exists"
     EXIT_KB = "exit-kb"
     INVALID_CMD = "invalid-command"
@@ -120,6 +123,7 @@ class Texts:
     commands = [
         ADD,
         PHONE,
+        SHOW_PHONE,
         CHANGE,
         ADD_EMAIL,
         SHOW_EMAIL,
@@ -127,6 +131,7 @@ class Texts:
         ADD_ADR,
         CHANGE_ADR,
         ADD_BD,
+        SHOW_ADR,
         SHOW_BD,
 
         ALL,
@@ -158,6 +163,7 @@ class Texts:
         PHONE: "Show a contact's phone number(s)",
         ALL: "Show all contacts in the address book with their data",
         ADD_BD: f"Add a birthday to a contact - in {DATE_FORMAT} form",
+        SHOW_ADR: "Show the contact's address",
         SHOW_BD: f"Show contact's birthday, if present, in {DATE_FORMAT} form",
         BD_SOON: "Show birthdays in the upcoming week, or in N upcoming days",
         ADD_ADR: "Add address data to a contact",
@@ -171,7 +177,7 @@ class Texts:
         ADD_EMAIL: "Add an email address to a contact",
         CHANGE_EMAIL: "Change a contact's email address",
         DELETE_EMAIL: "Delete a contact's email address",
-        SHOW_EMAIL: "Show a contact's email address",
+        SHOW_EMAIL: "Show a contact's email address(es)",
         SAVE: "Save the current state of the session", 
         HELP: "Show this help message",
         EXIT: "Exit the application" # CLOSE?
@@ -182,9 +188,9 @@ class Texts:
         ENTER_CMD: "\nEnter a command: ",
         CANCELLED: "\nCancelled",
         CONTACTS_LIST: "Full contact list ({}):\n\n",
-        PHONES_LIST: "Full phone list of {}:\n\n",
+        PHONES_LIST: "Full phone list of {} ({}):\n\n",
         PHONES_EMPTY: "No phones found.",
-        EMAILS_LIST: "Full email list of {}:\n\n",
+        EMAILS_LIST: "Full email list of {} ({}):\n\n",
         EMAILS_EMPTY: "No emails found.",
         FIND_LIST: "All contacts satisfying the query ({}):\n\n",
         FIND_NONE: "No contacts satisfying the query found.",
@@ -244,6 +250,7 @@ class Texts:
         INVALID_PHONE: "Invalid phone format.",
         INVALID_NUMBER: "Invalid number argument.",
         INVALID_DATE: f"Invalid date format. Use {DATE_FORMAT}",
+        CONTACT_EXISTS: "User already exists.",
         PHONE_EXISTS: "Phone already exists.",
         PHONE_NOT_FOUND: "Phone was not found.",
         NO_TITLE: "Note title is required.",

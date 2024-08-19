@@ -28,10 +28,14 @@ def get_response(cmd: str, args: List):
             delete_contact(args)
         case Texts.PHONE:
             show_all_phones(args)
+        case Texts.SHOW_PHONE:
+            show_all_phones(args)
         case Texts.ALL:
             show_all_contacts()
         case Texts.ADD_BD:
             add_birthday(args)
+        case Texts.SHOW_ADR:
+            show_address(args)
         case Texts.SHOW_BD:
             show_birthday(args)
         case Texts.BD_SOON:
@@ -86,11 +90,12 @@ def add_contact(args: List[str]) -> str:
     if len(args) < 1: return Texts.messages.get(Texts.INVALID_CMD, '')
     name, *rest = args
     record = address_book.find_record(name)
-    message = Texts.messages.get(Texts.CHANGE, '')
+    message = Texts.errors.get(Texts.CONTACT_EXISTS, '')
     if not record:
         address_book.add_record(name)
         message = Texts.messages.get(Texts.ADD, '')
     if rest:
+        message = Texts.messages.get(Texts.CHANGE, '')
         record = address_book.find_record(name)
         error = record.add_phone(rest[0])
         if error:
@@ -137,7 +142,7 @@ def show_all_phones(args: List[str]) -> str:
     if record:
         message = Texts.messages.get(Texts.PHONES_EMPTY, '')
         if record.phones:
-            message = Texts.messages.get(Texts.PHONES_LIST, '').format(name)
+            message = Texts.messages.get(Texts.PHONES_LIST, '').format(name, len(record.phones))
             message += ', '.join(p.value for p in record.phones)
     return message
 
@@ -174,9 +179,21 @@ def show_birthday(args: List[str]) -> str:
     message = Texts.errors.get(Texts.NOT_FOUND, '')
     if record:
         if record.birthday is None: return message
-        message = record.birthday.bd_date.date()
+        message = str(record.birthday)
     return message
 
+
+@input_error
+@show_message
+def show_address(args: List[str]) -> str:
+    if len(args) < 1: return Texts.messages.get(Texts.INVALID_CMD, '')
+    name = args[0]
+    record = address_book.find_record(name)
+    message = Texts.errors.get(Texts.NOT_FOUND, '')
+    if record:
+        if record.address is None: return message
+        message = record.address.value
+    return message
 
 @input_error
 @show_message
@@ -505,7 +522,7 @@ def show_email(args: List[str]) -> str:
     if record:
         message = Texts.messages.get(Texts.EMAILS_EMPTY, '')
         if record.emails:
-            message = Texts.messages.get(Texts.EMAILS_LIST, '').format(name)
+            message = Texts.messages.get(Texts.EMAILS_LIST, '').format(name, len(record.emails))
             message += ', '.join(e.value for e in record.emails)
     return message
 
