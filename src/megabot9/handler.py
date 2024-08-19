@@ -86,11 +86,12 @@ def add_contact(args: List[str]) -> str:
     if len(args) < 1: return Texts.messages.get(Texts.INVALID_CMD, '')
     name, *rest = args
     record = address_book.find_record(name)
-    message = Texts.messages.get(Texts.CHANGE, '')
+    message = Texts.errors.get(Texts.CONTACT_EXISTS, '')
     if not record:
         address_book.add_record(name)
         message = Texts.messages.get(Texts.ADD, '')
     if rest:
+        message = Texts.messages.get(Texts.CHANGE, '')
         record = address_book.find_record(name)
         error = record.add_phone(rest[0])
         if error:

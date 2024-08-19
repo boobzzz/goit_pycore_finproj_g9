@@ -50,6 +50,7 @@ class Texts:
     EMPTY = "empty"
     NOT_FOUND = "not-found"
     PHONE_NOT_FOUND = "phone-not-found"
+    CONTACT_EXISTS = "contact-exists"
     PHONE_EXISTS = "phone-exists"
     EXIT_KB = "exit-kb"
     INVALID_CMD = "invalid-command"
@@ -244,6 +245,7 @@ class Texts:
         INVALID_PHONE: "Invalid phone format.",
         INVALID_NUMBER: "Invalid number argument.",
         INVALID_DATE: f"Invalid date format. Use {DATE_FORMAT}",
+        CONTACT_EXISTS: "User already exists.",
         PHONE_EXISTS: "Phone already exists.",
         PHONE_NOT_FOUND: "Phone was not found.",
         NO_TITLE: "Note title is required.",
