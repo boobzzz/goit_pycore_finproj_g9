@@ -10,8 +10,10 @@ class Texts:
     CHANGE = "change"
     DELETE = "delete"
     PHONE = "phone"
+    SHOW_PHONE = "show-phone"
     ALL = "all"
     ADD_BD = "add-birthday"
+    SHOW_ADR = "show-address"
     SHOW_BD = "show-birthday"
     ADD_NOTE = "add-note"
     CHANGE_NOTE = "change-note"
@@ -121,6 +123,7 @@ class Texts:
     commands = [
         ADD,
         PHONE,
+        SHOW_PHONE,
         CHANGE,
         ADD_EMAIL,
         SHOW_EMAIL,
@@ -128,6 +131,7 @@ class Texts:
         ADD_ADR,
         CHANGE_ADR,
         ADD_BD,
+        SHOW_ADR,
         SHOW_BD,
 
         ALL,
@@ -159,6 +163,7 @@ class Texts:
         PHONE: "Show a contact's phone number(s)",
         ALL: "Show all contacts in the address book with their data",
         ADD_BD: f"Add a birthday to a contact - in {DATE_FORMAT} form",
+        SHOW_ADR: "Show the contact's address",
         SHOW_BD: f"Show contact's birthday, if present, in {DATE_FORMAT} form",
         BD_SOON: "Show birthdays in the upcoming week, or in N upcoming days",
         ADD_ADR: "Add address data to a contact",
@@ -172,7 +177,7 @@ class Texts:
         ADD_EMAIL: "Add an email address to a contact",
         CHANGE_EMAIL: "Change a contact's email address",
         DELETE_EMAIL: "Delete a contact's email address",
-        SHOW_EMAIL: "Show a contact's email address",
+        SHOW_EMAIL: "Show a contact's email address(es)",
         SAVE: "Save the current state of the session", 
         HELP: "Show this help message",
         EXIT: "Exit the application" # CLOSE?

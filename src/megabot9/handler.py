@@ -28,10 +28,14 @@ def get_response(cmd: str, args: List):
             delete_contact(args)
         case Texts.PHONE:
             show_all_phones(args)
+        case Texts.SHOW_PHONE:
+            show_all_phones(args)
         case Texts.ALL:
             show_all_contacts()
         case Texts.ADD_BD:
             add_birthday(args)
+        case Texts.SHOW_ADR:
+            show_address(args)
         case Texts.SHOW_BD:
             show_birthday(args)
         case Texts.BD_SOON:
@@ -178,6 +182,18 @@ def show_birthday(args: List[str]) -> str:
         message = record.birthday.bd_date.date()
     return message
 
+
+@input_error
+@show_message
+def show_address(args: List[str]) -> str:
+    if len(args) < 1: return Texts.messages.get(Texts.INVALID_CMD, '')
+    name = args[0]
+    record = address_book.find_record(name)
+    message = Texts.errors.get(Texts.NOT_FOUND, '')
+    if record:
+        if record.address is None: return message
+        message = record.address.value
+    return message
 
 @input_error
 @show_message
