@@ -142,7 +142,7 @@ def show_all_phones(args: List[str]) -> str:
     if record:
         message = Texts.messages.get(Texts.PHONES_EMPTY, '')
         if record.phones:
-            message = Texts.messages.get(Texts.PHONES_LIST, '').format(name)
+            message = Texts.messages.get(Texts.PHONES_LIST, '').format(name, len(record.phones))
             message += ', '.join(p.value for p in record.phones)
     return message
 
@@ -522,7 +522,7 @@ def show_email(args: List[str]) -> str:
     if record:
         message = Texts.messages.get(Texts.EMAILS_EMPTY, '')
         if record.emails:
-            message = Texts.messages.get(Texts.EMAILS_LIST, '').format(name)
+            message = Texts.messages.get(Texts.EMAILS_LIST, '').format(name, len(record.emails))
             message += ', '.join(e.value for e in record.emails)
     return message
 
