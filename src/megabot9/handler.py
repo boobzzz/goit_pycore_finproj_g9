@@ -179,7 +179,7 @@ def show_birthday(args: List[str]) -> str:
     message = Texts.errors.get(Texts.NOT_FOUND, '')
     if record:
         if record.birthday is None: return message
-        message = record.birthday.bd_date.date()
+        message = str(record.birthday)
     return message
 
 
