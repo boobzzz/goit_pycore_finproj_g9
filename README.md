@@ -98,10 +98,10 @@ exit - Exit the application
   This command returns the birthday data of a contact, if any, in the specified DD.MM.YYYY form. Example: `show-birthday Mike`. The user is going to be informed, if the requested contact is not found or has no birthday data saved.
 - all - Show all contacts in the address book with their data
 
-  This command returns all the contacts currently present, including all their data: name, all phones, all email addresses, address and birth date.
+  This command returns all the contacts currently present, including all their data: name, all phones, all email addresses, address and birth date. The bot also writes the amount of contacts found.
 - find - Search for contacts
 
-  This command allows finding contacts by matching with the query. There are multiple ways to carry this out: one can look for a specific phone number like `find phone 0574443322`, but wildcard search is also supported - when the like keyword is used, for instance `find phone like 057444_322` would try to find any contacts which have a phone number where the `_` in the middle is any digit. A broader wildcard search is to be used with the '%' symbol. For instance, following the same example, one can try: `find phone like 057%`. The functionality allows similar usage for searching for the following contact attributes: **name**, **phone**, **email address**, **address** (any field), **city**, **street**, **building**, **birthday**.
+  This command allows finding contacts by matching with the query. There are multiple ways to carry this out: one can look for a specific phone number like `find phone 0574443322`, but wildcard search is also supported - when the like keyword is used, for instance `find phone like 057444_322` would try to find any contacts which have a phone number where the `_` in the middle is any digit. A broader wildcard search is to be used with the '%' symbol. For instance, following the same example, one can try: `find phone like 057%`. The functionality allows similar usage for searching for the following contact attributes: **name**, **phone**, **email address**, **address** (any field), **city**, **street**, **building**, **birthday**. The bot also writes the amount of contacts found.
 - delete - Delete a contact by name
 
   This command allows deletion of an existing contact, specified by name. For example: `delete Mike`. The user is going to be informed if the contact is not present in the system.
