@@ -29,6 +29,10 @@ You can also install in developer mode by using: `pip install -e .`. This mode w
 
 **After installing, type `megabot` or `megabot9` from your terminal to use the bot. This will launch the bot in its command-line interface and show the greeting. If all done successfully, the commands will be auto-suggested to the user on typing.**
 
+**When done with the bot, type `exit` or `close` to exit the bot's command-line interface. This action will store the actual session data, so that you could continue using the same state of contact data on re-launch\*.**
+
+_\* Alternatively, you can make an exit which would purposedly skip saving data - e.g. if some some test or unwanted changes are made. To do that, simply exit the terminal by making an interrupt `Ctrl+C` (EOF `Ctrl+D` also supported if all necessary packages present)._
+
 ### The full list of commands supported by the bot are provided below with their explanations:
 *NB: The same list can be outputed by typing `help` in the bot's command-line interface.*
 ```
@@ -36,11 +40,12 @@ add - Add a contact or add a phone to a contact
 phone - Show a contact's phone number(s)
 change - Change a contact's phone
 add-email - Add an email address to a contact
-show-email - Show a contact's email address
+show-email - Show a contact's email address(es)
 change-email - Change a contact's email address
 add-address - Add address data to a contact
 change-address - Change address data of a contact
 add-birthday - Add a birthday to a contact - in DD.MM.YYYY form
+show-address - Show the contact's address
 show-birthday - Show contact's birthday, if present, in DD.MM.YYYY form
 all - Show all contacts in the address book with their data
 find - Search for contacts
@@ -60,10 +65,10 @@ exit - Exit the application
 #### The following section explains how exactly each command works:
 - add - Add a contact or add a phone to a contact
 
-  This command allows adding a new contact. It can be done as simply as typing `add Mike` into the bot. You can also add a contact immediately with a phone number, like `add Mike +111222333444`. To add an additional number for an existing contact, all that needs to be done is typing the add command again with specifying the contact's name, e.g.: `add Mike +111222333555`. The user is going to be informed if same the phone number is already present, or if the phone number given is invalid. Phone numbers can be given in a short form, like `add Mike 0554443322`, too. In such a case, the number is going to be padded with the Ukrainian country code and result in saving +380554443322 in such a case.
+  This command allows adding a new contact. It can be done as simply as typing `add Mike` into the bot. You can also add a contact immediately with a phone number, like `add Mike +111222333444`. To add an additional number for an existing contact, all that needs to be done is typing the add command again with specifying the contact's name, e.g.: `add Mike +111222333555`. The user is going to be informed if the same phone number is already present, or if the phone number given is invalid, or if the phone number is not given (like `add Mike`) but the user with that name is already present. Phone numbers can be given in a short form, like `add Mike 0554443322`, too. In such a case, the number is going to be padded with the Ukrainian country code and result in saving +380554443322 in such a case.
 - phone - Show a contact's phone number(s)
 
-  This command will return all the phone numbers of a contact - given that such a contact is present and any numbers are assigned to that contact. Example usage: `phone Mike`. The user is going to be informed if the contact is absent or if the contact has no phone numbers saved.
+  This command will return all the phone numbers of a contact - given that such a contact is present and any numbers are assigned to that contact. Example usage: `phone Mike`. The user is going to be informed if the contact is absent or if the contact has no phone numbers saved. This same result can be obtained with the `show-phone Mike`, as an alternative.
 - change - Change a contact's phone
 
   This command allows changing an already saved phone number, example usage is the following: `change Mike 0554443322 0574443322`. The user is going to be informed if the number that is attempted to be changed is not present in contact's data.
@@ -85,6 +90,9 @@ exit - Exit the application
 - add-birthday - Add a birthday to a contact - in DD.MM.YYYY form
 
   This command allows adding birthday data to a contact in the specified DD.MM.YYYY form. Example: `add-birthday Mike 01.02.1990`. The user is going to be informed if the birth date is given in a wrong format.
+- show-address - Show contact's birthday, if present, in DD.MM.YYYY form
+
+  This command returns the address of a contact, if any found. Example: `show-address Mike`. The user is going to be informed, if the requested contact is not found or has no address data saved.
 - show-birthday - Show contact's birthday, if present, in DD.MM.YYYY form
 
   This command returns the birthday data of a contact, if any, in the specified DD.MM.YYYY form. Example: `show-birthday Mike`. The user is going to be informed, if the requested contact is not found or has no birthday data saved.
