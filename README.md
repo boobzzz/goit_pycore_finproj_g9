@@ -68,7 +68,7 @@ exit - Exit the application
   This command allows adding a new contact. It can be done as simply as typing `add Mike` into the bot. You can also add a contact immediately with a phone number, like `add Mike +111222333444`. To add an additional number for an existing contact, all that needs to be done is typing the add command again with specifying the contact's name, e.g.: `add Mike +111222333555`. The user is going to be informed if the same phone number is already present, or if the phone number given is invalid, or if the phone number is not given (like `add Mike`) but the user with that name is already present. Phone numbers can be given in a short form, like `add Mike 0554443322`, too. In such a case, the number is going to be padded with the Ukrainian country code and result in saving +380554443322 in such a case.
 - phone - Show a contact's phone number(s)
 
-  This command will return all the phone numbers of a contact - given that such a contact is present and any numbers are assigned to that contact. Example usage: `phone Mike`. The user is going to be informed if the contact is absent or if the contact has no phone numbers saved. This same result can be obtained with the `show-phone Mike`, as an alternative.
+  This command will return all the phone numbers of a contact - given that such a contact is present and any numbers are assigned to that contact. Example usage: `phone Mike`. The user is going to be informed if the contact is absent or if the contact has no phone numbers saved. This same result can be obtained with the `show-phone Mike`, as an alternative. The bot also writes the amount of phones found in a contact.
 - change - Change a contact's phone
 
   This command allows changing an already saved phone number, example usage is the following: `change Mike 0554443322 0574443322`. The user is going to be informed if the number that is attempted to be changed is not present in contact's data.
@@ -77,7 +77,7 @@ exit - Exit the application
   This command allows assigning an email address to an existing contact. For example, one can type: `add-email Mike mike.surname@gmail.com` to assign a corresponding email to Mike. The user is going to be informed if the email is alrady present, or if it is invalid.
 - show-email - Show a contact's email address
 
-  This command will return all the email addresses of a contact - given that such a contact is present and any email addresses are assigned to that contact. Example usage: `show-email Mike`. The user is going to be informed if the contact is absent or if the contact has no email addresses saved.
+  This command will return all the email addresses of a contact - given that such a contact is present and any email addresses are assigned to that contact. Example usage: `show-email Mike`. The user is going to be informed if the contact is absent or if the contact has no email addresses saved. The bot also writes the amount of email addresses found in a contact.
 - change-email - Change a contact's email address
 
   This command allows changing an already saved email address, example usage is the following: `change-email Mike mike.surname@gmail.com mike.lastname@gmail.com`. The user is going to be informed if the number that is attempted to be changed is not present in contact's data.
