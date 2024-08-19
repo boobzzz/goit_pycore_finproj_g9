@@ -226,9 +226,9 @@ def birthdays(args: List[str]) -> str:
             entry["congrats_date"] = entry["congrats_date"].strftime(FORMAT)
             entry["birthday"] = entry["birthday"].strftime(FORMAT)
             if entry["congrats_date"] == entry["birthday"]:
-                message += f"{entry["name"]}: {entry["congrats_date"]}\n"
+                message += f"{entry['name']}: {entry['congrats_date']}\n"
             else:
-                message += f"{entry["name"]}: {entry["congrats_date"]} (from {entry["birthday"]})\n"
+                message += f"{entry['name']}: {entry['congrats_date']} (from {entry['birthday']})\n"
     else:
         message = Texts.messages.get(Texts.BD_NOT_FOUND, '')
 
